@@ -1,42 +1,3027 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=1280" />
-<title>Telmo · Manual de Identidad de Marca</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Anton&family=Bebas+Neue&family=Oswald:wght@500;700&family=Inter:wght@400;500;600;700;900&family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="manual/styles.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Telmo Pedidos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red:#cb0000;--red-d:#a80000;--red-bg:rgba(203,0,0,.13);
+  --bg:#111;--white:#1c1c1e;--bdr:#2a2a2a;--bdr-s:#222;
+  --text:#f0f0f0;--sub:#bbb;--muted:#888;--green:#2aaa5a;
+  --sans:'Montserrat',sans-serif;--sec:'Poppins',sans-serif;--mono:'Courier New',monospace;
+  --sh:0 1px 4px rgba(0,0,0,.4);--sh-md:0 4px 20px rgba(0,0,0,.5);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);display:flex;flex-direction:column;font-size:13px;}
+
+/* LOGO */
+.logo{background:var(--red);color:#fff;font-family:'Arial Black','Arial',sans-serif;font-weight:900;font-size:17px;letter-spacing:1px;padding:3px 9px;border-radius:3px;display:inline-block;line-height:1.3;}
+
+/* TOPBAR */
+.topbar{background:#0d0d0d;height:52px;padding:0 16px;display:flex;align-items:center;flex-shrink:0;border-bottom:2px solid #1a1a1a;z-index:20;}
+.tb-left{display:flex;align-items:center;gap:0;}
+.tb-mid{margin-left:auto;margin-right:auto;display:flex;align-items:center;gap:0;border-left:1px solid #222;border-right:1px solid #222;height:52px;}
+.tb-right{display:flex;align-items:center;gap:8px;}
+.tb-stat{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 22px;gap:1px;height:52px;}
+.tb-stat-lbl{font-size:9px;font-weight:700;letter-spacing:.1em;color:#555;text-transform:uppercase;white-space:nowrap;}
+.tb-stat-val{font-size:17px;font-weight:700;color:#e8e8e8;font-family:var(--sans);line-height:1;}
+.tb-stat-com{color:#34c759;}
+.tb-sep{width:1px;height:26px;background:#222;}
+.tb-sep-lg{width:1px;height:36px;background:#333;margin:0 4px;}
+.topbar-div{width:1px;height:20px;background:#2a2a2a;margin:0 14px;}
+.topbar-tabs{display:flex;gap:1px;}
+.ttab{padding:0 15px;height:52px;border:none;background:transparent;color:#555;font-family:var(--sans);font-size:11px;font-weight:600;cursor:pointer;letter-spacing:.04em;border-bottom:2px solid transparent;transition:all .15s;}
+.ttab:hover{color:#ccc;}
+.ttab-on{color:#fff!important;border-bottom-color:var(--red)!important;}
+.topbar-right{display:flex;align-items:center;gap:8px;}
+.vendor-lbl{font-size:10px;font-weight:600;color:#555;letter-spacing:.06em;text-transform:uppercase;}
+.vendor-btns{display:flex;gap:2px;background:#1a1a1a;border-radius:6px;padding:3px;border:1px solid #2a2a2a;}
+.vendor-btn{padding:4px 12px;border-radius:4px;border:none;background:transparent;color:#888;font-family:var(--sans);font-size:11px;font-weight:600;cursor:pointer;}
+.vendor-btn-on{background:var(--red);color:#fff;}
+
+/* SPLIT */
+.split{display:flex;flex:1;overflow:hidden;min-height:0;}
+.panel{width:50%;flex-shrink:0;overflow-y:auto;padding:14px 14px 80px;display:none;}
+.panel-on{display:block;}
+.panel-full{width:100%;}
+.map-col{flex:1;position:relative;background:#ddd;display:flex;flex-direction:column;}
+.map-col-hide{display:none!important;}
+.map-col iframe{flex:1;border:none;width:100%;height:100%;}
+.map-foot{position:absolute;bottom:0;left:0;right:0;background:rgba(10,10,10,.85);color:#bbb;font-family:var(--mono);font-size:10px;padding:5px 12px;display:flex;align-items:center;gap:8px;}
+#map-addr{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.map-hint{opacity:.4;font-size:9px;white-space:nowrap;}
+
+/* BANNER */
+#client-banner{margin-bottom:10px;display:none;}
+.banner{border-radius:8px;padding:10px 14px;display:flex;align-items:flex-start;gap:10px;box-shadow:var(--sh);}
+.b-old{background:#fffbe6;border-left:4px solid #f0a500;}
+.b-new{background:#f0faf4;border-left:4px solid var(--green);}
+.b-icon{font-size:16px;flex-shrink:0;}
+.b-text strong{display:block;font-size:12px;font-weight:600;}
+.b-text span{font-size:11px;color:var(--sub);}
+.b-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;}
+.btn-fill{margin-left:auto;padding:5px 12px;background:#111;color:#fff;border:none;border-radius:5px;font-size:10px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;}
+
+/* ETIQUETAS */
+.tag{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
+.tag-vip{background:#ffd700;color:#7a5c00;}
+.tag-recurrente{background:#d4edda;color:#1a6a2a;}
+.tag-inactivo{background:#e2e3e5;color:#555;}
+.tag-riesgo{background:#f8d7da;color:#8b0000;}
+.tag-nuevo{background:#d1ecf1;color:#0c5460;}
+.tag-recuperar{background:#2a1a4a;color:#b080ff;border:1px solid rgba(176,128,255,.25);}
+
+/* CARDS */
+.sec-lbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#666;margin-bottom:6px;padding-left:1px;display:flex;align-items:center;gap:8px;}
+.sec-lbl::after{content:"";flex:1;height:1px;background:var(--bdr-s);}
+.card{background:var(--white);border-radius:10px;margin-bottom:10px;box-shadow:var(--sh);border:1px solid var(--bdr);overflow:hidden;}
+.card-body{padding:15px 16px;}
+.gap{display:grid;gap:11px;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.g3{display:grid;grid-template-columns:.5fr 1fr 1fr;gap:10px;}
+.s2{grid-column:span 2;}
+
+/* FIELDS */
+.fld{display:flex;flex-direction:column;gap:5px;}
+.fld label{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#888;}
+.fld input,.fld select{width:100%;border:1.5px solid var(--bdr);border-radius:7px;padding:8px 11px;font-family:var(--sans);font-size:13px;color:var(--text);background:#fff;outline:none;-webkit-appearance:none;appearance:none;background-image:none!important;transition:border-color .15s;}
+.fld input:focus,.fld select:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(203,0,0,.08);}
+.fld input[readonly]{background:#f8f8f8;color:var(--muted);border-color:var(--bdr-s);cursor:default;}
+.fld textarea{width:100%;border:1.5px solid var(--bdr);border-radius:7px;padding:8px 11px;font-family:var(--sans);font-size:13px;color:var(--text);background:#fff;outline:none;resize:vertical;min-height:52px;transition:border-color .15s;}
+.fld textarea:focus{border-color:var(--red);}
+.fld-hint{font-size:10px;color:#666;margin-top:2px;}
+
+/* DATE BUTTONS */
+.date-btns{display:flex;gap:5px;margin-top:5px;}
+.date-btn{padding:3px 10px;border:1.5px solid var(--bdr);border-radius:5px;background:#f5f5f5;font-size:10px;font-weight:600;font-family:var(--sans);cursor:pointer;color:var(--sub);}
+.date-btn:hover{background:var(--red);color:#fff;border-color:var(--red);}
+
+/* SCHED */
+.sched-n{display:none;}
+.sched-n-on{display:inline-flex;align-items:center;}
+
+/* ADDRESS */
+#addr-ac-wrap{width:100%;}
+.addr-ok{border-color:var(--green)!important;}
+
+/* NOMINATIM DROP */
+.nom-drop{position:absolute;top:100%;left:0;width:100%;background:var(--white);border:1.5px solid var(--red);border-radius:8px;z-index:99999;max-height:220px;overflow-y:auto;box-shadow:var(--sh-md);display:none;}
+.nom-drop-on{display:block;}
+.nom-item{padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--bdr-s);font-size:12px;}
+.nom-item:last-child{border-bottom:none;}
+.nom-item:hover{background:var(--red-bg);}
+
+/* PRODUCTS */
+#prods{display:flex;flex-direction:column;gap:8px;margin-bottom:8px;}
+.prod-row{background:#fafafa;border:1.5px solid var(--bdr-s);border-radius:8px;padding:8px 10px;display:grid;grid-template-columns:100px 1fr 58px 100px 24px;gap:8px;align-items:center;transition:border-color .2s;}
+.prod-found{border-color:var(--green);background:#f6fff9;}
+.prod-bad{border-color:var(--red);background:var(--red-bg);}
+.sku-wrap{position:relative;}
+.sku-inp{font-family:var(--mono)!important;font-size:11px!important;text-transform:uppercase;letter-spacing:.04em;}
+.sku-st{position:absolute;right:8px;top:50%;margin-top:-7px;font-size:12px;pointer-events:none;}
+.sku-drop{position:fixed;background:#fff;border:1.5px solid var(--red);border-radius:8px;z-index:99999;max-height:220px;overflow-y:auto;box-shadow:var(--sh-md);display:none;min-width:440px;}
+.sku-drop-on{display:block;}
+.sku-item{padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--bdr-s);}
+.sku-item:last-child{border-bottom:none;}
+.sku-item:hover{background:var(--red-bg);}
+.sku-sku{font-family:var(--mono);font-size:9px;color:var(--red);font-weight:700;letter-spacing:.06em;}
+.sku-nom{font-size:12px;color:var(--text);margin-top:1px;}
+.sku-prc{font-size:10px;color:var(--sub);}
+.ro-inp{width:100%;border:1.5px solid var(--bdr-s);border-radius:7px;padding:6px 8px;background:#f8f8f8;color:var(--muted);font-size:11px;font-family:var(--sans);outline:none;}
+.mn-inp{font-family:var(--mono)!important;border:1.5px solid var(--bdr);border-radius:7px;padding:6px 8px;font-size:12px;width:100%;outline:none;background:#fff;color:var(--text);}
+.mn-inp:focus{border-color:var(--red);}
+.btn-del{width:24px;height:24px;border-radius:50%;background:transparent;border:1.5px solid var(--bdr);color:var(--muted);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.btn-del:hover{background:var(--red-bg);border-color:var(--red);color:var(--red);}
+.btn-add{display:flex;align-items:center;gap:8px;padding:9px 14px;background:transparent;border:2px dashed var(--bdr);border-radius:8px;color:var(--muted);font-family:var(--sans);font-size:11px;font-weight:600;cursor:pointer;width:100%;}
+.btn-add:hover{border-color:var(--red);color:var(--red);background:var(--red-bg);}
+
+/* TOTAL + DISCOUNT */
+.total-section{margin-top:8px;border-top:1.5px solid var(--bdr-s);padding-top:10px;display:flex;align-items:center;gap:10px;justify-content:flex-end;}
+.disc-global{display:flex;align-items:center;gap:6px;}
+.disc-global label{font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+.disc-global-wrap{display:flex;gap:3px;}
+.disc-global-inp{width:70px;border:1.5px solid var(--bdr);border-radius:6px;padding:5px 8px;font-family:var(--mono);font-size:12px;color:var(--text);background:#fff;outline:none;}
+.disc-global-inp:focus{border-color:var(--red);}
+.disc-global-tog{padding:5px 9px;border:1.5px solid var(--bdr);border-radius:6px;background:#f5f5f5;font-family:var(--mono);font-size:11px;font-weight:700;cursor:pointer;color:var(--sub);}
+.disc-global-tog:hover{background:var(--text);color:#fff;border-color:var(--text);}
+.total-final{display:flex;align-items:baseline;gap:8px;}
+.total-lbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.total-val{font-family:var(--sans);font-size:22px;font-weight:700;color:var(--red);}
+
+/* SUBMIT BAR */
+.sub-bar{position:fixed;bottom:0;left:0;width:50%;background:rgba(239,239,239,.97);border-top:1.5px solid var(--bdr);padding:10px 14px;display:flex;gap:8px;z-index:30;}
+.sub-bar-hide{display:none!important;}
+.btn-save{flex:1;padding:12px;background:var(--red);color:#fff;border:none;border-radius:8px;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 2px 8px rgba(203,0,0,.28);}
+.btn-save:hover{background:var(--red-d);}
+.btn-save-off{background:#bbb!important;cursor:not-allowed!important;box-shadow:none!important;}
+.btn-clr{padding:12px 16px;background:transparent;color:var(--sub);border:1.5px solid var(--bdr);border-radius:8px;font-family:var(--sans);font-size:11px;font-weight:600;cursor:pointer;}
+.btn-clr:hover{border-color:#111;color:#111;}
+
+/* MODAL */
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:100;opacity:0;pointer-events:none;transition:opacity .2s;}
+.modal-ov-on{opacity:1!important;pointer-events:all!important;}
+.modal{background:#1a1a1a;border-radius:14px;padding:24px;max-width:500px;width:92%;box-shadow:0 24px 64px rgba(0,0,0,.6);border:1px solid #2a2a2a;}
+.modal-wide{max-width:960px;width:96%;max-height:92vh;overflow-y:auto;}
+.modal-top{display:flex;align-items:center;gap:16px;margin-bottom:18px;}
+.modal-cols{display:flex;gap:18px;align-items:flex-start;}
+.modal-left{flex:1;display:flex;flex-direction:column;gap:6px;min-width:0;}
+.modal-right{width:280px;flex-shrink:0;}
+.modal-badge{display:inline-flex;align-items:center;gap:6px;background:#0d2615;border:1px solid var(--green);border-radius:20px;padding:4px 12px;}
+.modal-dot{width:6px;height:6px;border-radius:50%;background:var(--green);}
+.modal-badge-t{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);}
+.modal-id{font-family:var(--sans);font-size:32px;font-weight:700;color:#fff;line-height:1;}
+/* Summary rows */
+.cm-row{display:flex;align-items:baseline;gap:8px;padding:5px 10px;border-radius:6px;background:#141414;border:1px solid #222;}
+.cm-row-lbl{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#555;white-space:nowrap;min-width:70px;}
+.cm-row-val{font-size:12px;color:#e0e0e0;font-family:var(--sans);}
+.cm-prods{background:#141414;border:1px solid #222;border-radius:6px;padding:8px 10px;}
+.cm-prods-lbl{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#555;margin-bottom:5px;}
+.cm-prod-item{font-size:12px;color:#e0e0e0;padding:2px 0;display:flex;align-items:center;gap:6px;}
+.cm-prod-sku{font-family:var(--sans);font-size:10px;color:#f0f0f0;font-weight:700;letter-spacing:.04em;}
+/* WhatsApp preview */
+.wa-header{display:flex;align-items:center;gap:6px;background:#075e54;color:#fff;padding:9px 12px;border-radius:8px 8px 0 0;font-size:11px;font-weight:600;}
+.wa-chat{background:#e5ddd5;padding:14px 12px 10px;border-radius:0 0 8px 8px;min-height:200px;}
+.wa-bubble{background:#dcf8c6;border-radius:0 8px 8px 8px;padding:10px 13px;font-size:12px;line-height:1.55;color:#111;word-break:break-word;box-shadow:0 1px 2px rgba(0,0,0,.15);position:relative;display:inline-block;max-width:100%;}
+.wa-bubble::before{content:'';position:absolute;top:0;left:-8px;border:8px solid transparent;border-top-color:#dcf8c6;border-left:none;}
+.wa-time{text-align:right;font-size:10px;color:#888;margin-top:4px;}
+/* Actions */
+.modal-acts{display:flex;gap:8px;margin-top:16px;}
+.btn-copy{flex:1;padding:11px;background:#252525;color:var(--text);border:1px solid #333;border-radius:8px;font-family:var(--sans);font-size:11px;font-weight:700;cursor:pointer;}
+.btn-copy:hover{background:#333;}
+.btn-copy-ok{background:var(--green)!important;color:#fff!important;border-color:var(--green)!important;}
+.btn-new{padding:11px 20px;background:var(--red);color:#fff;border:none;border-radius:8px;font-family:var(--sans);font-size:11px;font-weight:700;cursor:pointer;}
+.btn-new:hover{background:var(--red-d);}
+/* Edit prods */
+.ep-head{display:grid;grid-template-columns:110px 1fr 58px 95px 80px 28px;gap:7px;padding:0 10px 2px;}
+.ep-head span{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#555;}
+.edit-prod-row{display:grid;grid-template-columns:110px 1fr 58px 95px 80px 28px;gap:7px;align-items:center;background:#161616;border:1.5px solid var(--bdr-s);border-radius:8px;padding:7px 10px;margin-bottom:5px;transition:border-color .2s;}
+.edit-prod-row .esku-wrap{position:relative;}
+.esku-drop{position:absolute;top:calc(100% + 3px);left:0;min-width:340px;background:var(--white);border:1.5px solid var(--red);border-radius:8px;z-index:99999;max-height:200px;overflow-y:auto;box-shadow:var(--sh-md);display:none;}
+.esku-drop-on{display:block;}
+.ep-subt{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:right;padding-right:2px;}
+
+/* TOAST */
+#toast{position:fixed;bottom:68px;left:25%;transform:translateX(-50%) translateY(70px);background:#111;color:#fff;padding:10px 22px;border-radius:50px;font-size:12px;font-weight:600;transition:transform .3s cubic-bezier(.34,1.56,.64,1);z-index:999;box-shadow:var(--sh-md);}
+.toast-on{transform:translateX(-50%) translateY(0)!important;}
+.toast-err{background:var(--red)!important;}
+
+/* VENDOR MODAL */
+.vm-ov{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:200;}
+.vm-box{background:#fff;border-radius:14px;padding:32px;max-width:340px;width:92%;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.2);}
+.vm-logo{margin:0 auto 20px;display:flex;justify-content:center;}
+.vm-box h2{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sub);margin-bottom:6px;}
+.vm-box p{font-size:13px;color:var(--muted);margin-bottom:22px;}
+.vm-btns{display:flex;flex-direction:column;gap:8px;}
+.vm-btn{padding:13px;border:1.5px solid var(--bdr);border-radius:8px;background:transparent;font-family:var(--sans);font-size:14px;font-weight:600;cursor:pointer;color:var(--text);}
+.vm-btn:hover{background:var(--red);color:#fff;border-color:var(--red);}
+
+/* SEARCH BAR (consultar/clientes) */
+.search-bar{display:flex;gap:8px;margin-bottom:16px;}
+.search-bar input{flex:1;border:1.5px solid var(--bdr);border-radius:7px;padding:10px 14px;font-family:var(--mono);font-size:16px;font-weight:600;color:var(--text);outline:none;letter-spacing:.06em;}
+.search-bar input:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(203,0,0,.08);}
+.btn-search{padding:10px 18px;background:var(--red);color:#fff;border:none;border-radius:7px;font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
+.btn-search:hover{background:var(--red-d);}
+
+/* ORDER FOUND */
+.order-found{display:none;}
+.order-found-on{display:block;}
+.gestion-sel{width:100%;border:2px solid var(--red);border-radius:7px;padding:8px 12px;font-family:var(--sans);font-size:13px;font-weight:600;color:var(--text);background:#fff;outline:none;-webkit-appearance:none;appearance:none;}
+.edit-acts{display:flex;gap:8px;margin-top:14px;}
+.btn-update{flex:1;padding:12px;background:var(--red);color:#fff;border:none;border-radius:8px;font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;}
+.btn-update:hover{background:var(--red-d);}
+.btn-update-off{background:#bbb!important;cursor:not-allowed!important;}
+.btn-cancel{padding:12px 16px;background:transparent;color:var(--sub);border:1.5px solid var(--bdr);border-radius:8px;font-family:var(--sans);font-size:11px;font-weight:600;cursor:pointer;}
+
+/* CLIENT PANEL */
+.client-header{background:var(--white);border-radius:10px;padding:16px;margin-bottom:10px;box-shadow:var(--sh);border:1px solid var(--bdr-s);}
+.client-name{font-size:18px;font-weight:700;margin-bottom:6px;}
+.client-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;}
+.client-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.stat-box{background:var(--bg);border-radius:8px;padding:10px 12px;}
+.stat-val{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--text);}
+.stat-lbl{font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;}
+
+/* ORDERS TABLE */
+.orders-table{width:100%;border-collapse:collapse;font-size:11px;}
+.orders-table th{text-align:left;font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700;padding:4px 8px;border-bottom:1.5px solid var(--bdr-s);}
+.orders-table td{padding:6px 8px;border-bottom:1px solid var(--bdr-s);}
+.orders-table tr:last-child td{border-bottom:none;}
+.order-id-link{font-family:var(--sans);font-weight:700;color:#fff;cursor:pointer;font-size:11px;}
+.order-id-link:hover{text-decoration:underline;}
+/* Pedidos tab */
+.ped-filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+.ped-filter{padding:5px 12px;border-radius:20px;border:1.5px solid var(--bdr);background:transparent;color:var(--sub);font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.04em;cursor:pointer;transition:all .15s;}
+.ped-filter:hover{border-color:#555;color:#ccc;}
+.ped-filter-on{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important;}
+.ped-filter-prep{border-color:#F2B705;color:#F2B705;}
+.ped-filter-prep.ped-filter-on{background:#F2B705!important;border-color:#F2B705!important;color:#2a1a00!important;}
+.ped-filter-ag{border-color:#74ACDF;color:#74ACDF;}
+.ped-filter-ag.ped-filter-on{background:#74ACDF!important;border-color:#74ACDF!important;color:#051830!important;}
+.ped-filter-fin{border-color:#8ED973;color:#8ED973;}
+.ped-filter-fin.ped-filter-on{background:#8ED973!important;border-color:#8ED973!important;color:#0d2a05!important;}
+.ped-filter-listo{border-color:#7EC8E3;color:#7EC8E3;}
+.ped-filter-listo.ped-filter-on{background:#7EC8E3!important;border-color:#7EC8E3!important;color:#051820!important;}
+.ped-filter-cam{border-color:#C6EFCE;color:#C6EFCE;}
+.ped-filter-cam.ped-filter-on{background:#C6EFCE!important;border-color:#C6EFCE!important;color:#0d2a10!important;}
+.ped-table-wrap{overflow-x:auto;}
+.ped-table{width:100%;border-collapse:collapse;font-size:12px;}
+.ped-table th{text-align:left;font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700;padding:6px 10px;border-bottom:1.5px solid var(--bdr-s);}
+.ped-table td{padding:8px 10px;border-bottom:1px solid var(--bdr-s);vertical-align:middle;}
+.ped-table tr:last-child td{border-bottom:none;}
+.ped-table tr:hover td{background:#181818;}
+.ped-id-link{font-family:var(--sans);font-weight:700;color:#fff;cursor:pointer;font-size:12px;}
+.ped-id-link:hover{text-decoration:underline;}
+.ped-nom-link{color:#e0e0e0;cursor:pointer;font-weight:600;}
+.ped-nom-link:hover{color:var(--red);text-decoration:underline;}
+.ped-loc{color:var(--sub);font-size:11px;}
+.ped-val{font-family:var(--mono);font-weight:600;color:#e0e0e0;}
+.ped-empty{text-align:center;padding:32px;color:var(--muted);font-size:12px;}
+.gest-chip{display:inline-block;padding:2px 7px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:.04em;}
+.gest-fin{background:#8ED973;color:#0d2a05;}
+.gest-fall{background:#E8E8E8;color:#333;}
+.gest-prep{background:#F2B705;color:#2a1a00;}
+.gest-cam{background:#C6EFCE;color:#0d2a10;}
+.gest-ag{background:#74ACDF;color:#051830;}
+.gest-listo{background:#7EC8E3;color:#051820;}
+.gest-canc{background:#E8E8E8;color:#333;}
+.gest-err{background:#E8E8E8;color:#333;}
+.gest-other{background:#E8E8E8;color:#333;}
+
+/* RANKING */
+.ranking-toggle{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--white);border-radius:8px;border:1px solid var(--bdr-s);cursor:pointer;margin-bottom:8px;box-shadow:var(--sh);}
+.ranking-toggle span{font-size:11px;font-weight:600;color:var(--text);}
+.ranking-toggle small{font-size:10px;color:var(--muted);}
+.ranking-list{display:none;}
+.ranking-list-on{display:block;}
+.rank-row{display:grid;grid-template-columns:24px 1fr auto auto auto;gap:8px;align-items:center;padding:7px 0;border-bottom:1px solid var(--bdr-s);font-size:12px;}
+.rank-row:last-child{border-bottom:none;}
+.rank-n{font-family:var(--mono);font-size:10px;color:var(--muted);font-weight:700;}
+.rank-name{font-weight:500;}
+.rank-peds{font-size:10px;color:var(--muted);}
+.rank-amt{font-family:var(--mono);font-weight:700;color:var(--red);font-size:12px;}
+
+/* Scrollbar */
+.panel::-webkit-scrollbar{width:4px;}
+.panel::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:4px;}
+
+/* ── GESTIÓN TAB ── */
+.subtab-bar{display:flex;gap:2px;margin-bottom:14px;background:#161616;border-radius:8px;padding:4px;border:1px solid var(--bdr);}
+.subtab{flex:1;padding:8px 0;border:none;background:transparent;color:#555;font-family:var(--sans);font-size:11px;font-weight:700;cursor:pointer;border-radius:6px;letter-spacing:.04em;transition:all .15s;}
+.subtab:hover{color:#ccc;}
+.subtab-on{background:var(--red)!important;color:#fff!important;}
+.subpanel{display:none;}
+.subpanel-on{display:block;}
+.dispatch-table{width:100%;border-collapse:collapse;font-size:12px;}
+.dispatch-table th{text-align:left;font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700;padding:6px 8px;border-bottom:1.5px solid var(--bdr-s);}
+.dispatch-table td{padding:8px 8px;border-bottom:1px solid var(--bdr-s);vertical-align:middle;}
+.dispatch-table tr:last-child td{border-bottom:none;}
+.dispatch-table tr:hover td{background:#181818;}
+.dispatch-chk{width:16px;height:16px;cursor:pointer;accent-color:var(--red);}
+.dispatch-actions{display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap;}
+.dispatch-sel-all{padding:6px 12px;background:transparent;border:1.5px solid var(--bdr);border-radius:6px;color:var(--sub);font-family:var(--sans);font-size:11px;font-weight:600;cursor:pointer;}
+.dispatch-sel-all:hover{border-color:#555;color:#ccc;}
+.btn-dispatch{padding:9px 18px;background:var(--red);color:#fff;border:none;border-radius:7px;font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;letter-spacing:.04em;}
+.btn-dispatch:hover{background:var(--red-d);}
+.btn-dispatch:disabled{background:#2a2a2a;color:#555;cursor:not-allowed;}
+.dispatch-count{font-size:11px;color:var(--muted);}
+/* Cobros */
+.cobro-search{display:flex;gap:8px;margin-bottom:14px;}
+.cobro-search input{flex:1;border:1.5px solid var(--bdr);border-radius:7px;padding:9px 12px;font-family:var(--mono);font-size:15px;font-weight:600;color:var(--text);background:#181818;outline:none;letter-spacing:.06em;}
+.cobro-search input:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(203,0,0,.08);}
+.cobro-form{display:none;}
+.cobro-form-on{display:block;}
+.cobro-order-info{background:#161616;border:1px solid var(--bdr);border-radius:8px;padding:12px 14px;margin-bottom:12px;}
+.cobro-order-id{font-size:24px;font-weight:700;color:#fff;font-family:var(--sans);line-height:1;}
+.cobro-order-name{font-size:13px;font-weight:600;margin-top:4px;}
+.cobro-order-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.cobro-row{display:grid;grid-template-columns:1fr 120px;gap:10px;align-items:end;margin-bottom:10px;}
+.cobro-row-3{display:grid;grid-template-columns:1fr 120px 1fr;gap:10px;align-items:end;margin-bottom:10px;}
+.nr-op-wrap{display:none;margin-bottom:10px;}
+.nr-op-wrap-on{display:block;}
+.cobro-status{padding:6px 12px;border-radius:6px;font-size:11px;font-weight:700;margin-bottom:8px;display:none;}
+.cobro-status-warn{background:#2a1a00;border:1px solid #f0a500;color:#f0a500;display:block;}
+.cobro-status-ok{background:#0d2615;border:1px solid var(--green);color:var(--green);display:block;}
+.btn-cobro-save{width:100%;padding:12px;background:var(--green);color:#fff;border:none;border-radius:8px;font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;margin-top:8px;letter-spacing:.04em;}
+.btn-cobro-save:hover{background:#229a4a;}
+.caja-tag-del:hover{color:var(--red);}
+.cajas-add{display:flex;gap:6px;}
+.cajas-add input{flex:1;border:1.5px solid var(--bdr);border-radius:6px;padding:6px 10px;font-family:var(--sans);font-size:12px;background:#181818;color:var(--text);outline:none;}
+.cajas-add input:focus{border-color:var(--red);}
+.btn-caja-add{padding:6px 12px;background:var(--red);color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;}
+
+/* ── DARK MODE OVERRIDES ── */
+body{background:var(--bg);color:var(--text);}
+.fld label{font-family:var(--sec);color:#999;}
+.fld-hint{font-family:var(--sec);}
+.sec-lbl{font-family:var(--sec);color:#777;}
+.stat-lbl{font-family:var(--sec);}
+.vendor-lbl{font-family:var(--sec);color:#666;}
+.vendor-btn{color:#bbb;}
+.card{background:var(--white);}
+.fld input,.fld select{background:#181818;color:var(--text);border-color:var(--bdr);}
+.fld input:focus,.fld select:focus{box-shadow:0 0 0 3px rgba(203,0,0,.12);}
+.fld input[readonly]{background:#141414;color:var(--muted);}
+.fld input[type=date]::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.6;cursor:pointer;}
+.fld input[type=date]::-webkit-calendar-picker-indicator:hover{opacity:1;}
+.fld textarea{background:#181818;color:var(--text);border-color:var(--bdr);}
+.fld textarea:focus{box-shadow:0 0 0 3px rgba(203,0,0,.12);}
+.mn-inp{background:#181818;color:var(--text);border-color:var(--bdr);}
+.ro-inp{background:#141414;color:var(--muted);border-color:var(--bdr);}
+.gestion-sel{background:#181818;color:var(--text);}
+.disc-global-inp{background:#181818;color:var(--text);border-color:var(--bdr);}
+.disc-global-tog{background:#181818;color:var(--sub);border-color:var(--bdr);}
+.disc-global-tog:hover{background:var(--text);color:#111;}
+.date-btn{background:#2a2a2a;color:#e0e0e0;border-color:#444;}
+.btn-mostrador-on{background:#0d2a10!important;border-color:#4caf50!important;color:#8ed973!important;}
+.prod-row{background:#161616;}
+.prod-found{background:#0d1f14;}
+.prod-bad{background:var(--red-bg);}
+.sku-drop,.nom-drop{background:var(--white);}
+.nom-item,.sku-item{color:var(--text);border-color:var(--bdr);}
+.nom-item:hover,.sku-item:hover{background:var(--red-bg);}
+.btn-add{border-color:var(--bdr);color:var(--muted);}
+.sub-bar{background:rgba(17,17,17,.97);border-color:var(--bdr);}
+.btn-clr{color:var(--sub);border-color:var(--bdr);}
+.btn-clr:hover{border-color:var(--text);color:var(--text);}
+.btn-save-off{background:#2a2a2a!important;color:#555!important;box-shadow:none!important;}
+.btn-copy{background:#252525;color:var(--text);}
+.btn-copy:hover{background:#333;}
+.vm-ov{background:rgba(0,0,0,.85);}
+.vm-box{background:var(--white);border:1px solid var(--bdr);}
+.vm-btn{background:#161616;color:var(--text);border-color:var(--bdr);}
+#toast{background:#252525;color:var(--text);border:1px solid var(--bdr);}
+.toast-err{background:var(--red)!important;}
+.search-bar input{background:#181818;color:var(--text);border-color:var(--bdr);}
+.search-bar input:focus{box-shadow:0 0 0 3px rgba(203,0,0,.12);}
+.orders-table th{border-color:var(--bdr);font-family:var(--sec);}
+.orders-table td{border-color:var(--bdr);}
+.gest-fin{background:#8ED973;color:#0d2a05;}
+.gest-fall{background:#E8E8E8;color:#333;}
+.gest-prep{background:#F2B705;color:#2a1a00;}
+.gest-cam{background:#C6EFCE;color:#0d2a10;}
+.gest-ag{background:#74ACDF;color:#051830;}
+.gest-listo{background:#7EC8E3;color:#051820;}
+.gest-other{background:#E8E8E8;color:#333;}
+.tag-vip{background:#3d2e00;color:#ffd700;border:1px solid rgba(255,215,0,.25);}
+.tag-recurrente{background:#0d2615;color:#2aaa5a;border:1px solid rgba(42,170,90,.25);}
+.tag-inactivo{background:#1e1e1e;color:#666;border:1px solid #333;}
+.tag-riesgo{background:#2a0a0a;color:#ff6b6b;border:1px solid rgba(255,107,107,.25);}
+.tag-nuevo{background:#0a1e2a;color:#4db8ff;border:1px solid rgba(77,184,255,.25);}
+.client-header{background:var(--white);border-color:var(--bdr);}
+.stat-box{background:#161616;border:1px solid var(--bdr);}
+.ranking-toggle{background:var(--white);border-color:var(--bdr);}
+.ranking-toggle:hover{border-color:var(--red);}
+.rank-row:hover{background:var(--red-bg);}
+.rank-row{border-color:var(--bdr);}
+.edit-acts .btn-cancel{color:var(--sub);border-color:var(--bdr);}
+.btn-update-off{background:#2a2a2a!important;color:#555!important;}
+/* Historial de estados */
+.hist-timeline{display:flex;flex-direction:column;gap:0;}
+.hist-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;position:relative;}
+.hist-item:not(:last-child)::after{content:'';position:absolute;left:7px;top:22px;bottom:-8px;width:2px;background:#2a2a2a;}
+.hist-dot{width:16px;height:16px;border-radius:50%;flex-shrink:0;margin-top:2px;border:2px solid transparent;}
+.hist-dot-preparar{background:#F2B705;border-color:#c49000;}
+.hist-dot-agendado{background:#74ACDF;border-color:#4a80b5;}
+.hist-dot-listo{background:#7EC8E3;border-color:#4aa0c0;}
+.hist-dot-camino{background:#C6EFCE;border-color:#5ca870;}
+.hist-dot-finalizado{background:#8ED973;border-color:#5ca830;}
+.hist-dot-otro{background:#555;border-color:#444;}
+.hist-info{flex:1;}
+.hist-estado{font-size:11px;font-weight:700;color:var(--text);letter-spacing:.03em;}
+.hist-ts{font-size:10px;color:var(--sub);font-family:var(--mono);margin-top:1px;}
+/* Banner */
+.b-old{background:#1e1500;border-left-color:#f0a500;}
+.b-new{background:#0d1f14;border-left-color:var(--green);}
+.b-icon{font-size:24px;}
+.b-text strong{font-size:14px;font-weight:700;}
+/* Scheduled badge */
+.sched-n{display:none;}
+.sched-n-on{display:inline-flex!important;align-items:center;gap:5px;padding:3px 9px;font-size:9px;font-weight:700;color:#051830;background:#74ACDF;border:none;border-radius:5px;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;}
+/* Map dark */
+.map-col{background:#0a0a0a;}
+.map-col iframe{}
+.map-foot{background:rgba(0,0,0,.92);border-top:1px solid var(--bdr);}
+.banner-recup{margin-top:7px;background:#2a1a4a;border:1px solid rgba(176,128,255,.3);border-radius:6px;padding:6px 10px;font-size:10px;font-weight:700;color:#b080ff;letter-spacing:.04em;}
+/* Dropdowns dark */
+select,select option{background:#181818!important;color:#f0f0f0!important;}
+.btn-fill{background:#333;color:#f0f0f0;border:1px solid #555;}
+.btn-fill:hover{background:var(--red);border-color:var(--red);}
+.gest-canc{background:#E8E8E8;color:#333;}
+.gest-err{background:#E8E8E8;color:#333;}
+/* Print button */
+.btn-print-lbl{padding:5px 11px;background:#1a1a1a;border:1px solid #333;border-radius:5px;color:#aaa;font-family:var(--sans);font-size:10px;font-weight:600;cursor:pointer;letter-spacing:.04em;display:flex;align-items:center;gap:5px;}
+.btn-print-lbl:hover{background:var(--red);color:#fff;border-color:var(--red);}
+/* Etiquetas subpanel */
+.etq-bank-sel{padding:3px 6px;border-radius:5px;border:1px solid var(--bdr);background:#181818;color:var(--text);font-family:var(--sans);font-size:10px;font-weight:600;outline:none;cursor:pointer;}
+.etq-bank-sel:focus{border-color:var(--red);}
+.etq-entrega{font-size:10px;line-height:1.4;}
+.etq-entrega-date{font-weight:700;color:var(--text);}
+.etq-entrega-hora{color:var(--muted);}
+/* Loading indicator */
+#ld{position:fixed;top:52px;left:50%;transform:translateX(-50%);background:rgba(18,18,18,.95);border:1px solid #2a2a2a;border-radius:20px;padding:5px 16px 5px 12px;font-size:10px;font-weight:600;color:#888;display:none;z-index:50;align-items:center;gap:7px;box-shadow:0 2px 12px rgba(0,0,0,.5);}
+#ld.ld-on{display:flex;}
+.ld-dots{display:flex;gap:3px;align-items:center;}
+.ld-dots span{width:5px;height:5px;border-radius:50%;background:#94DCF8;display:inline-block;animation:ldBounce .9s ease-in-out infinite;}
+.ld-dots span:nth-child(2){animation-delay:.2s;}
+.ld-dots span:nth-child(3){animation-delay:.4s;}
+@keyframes ldBounce{0%,80%,100%{transform:scale(.5);opacity:.3;}40%{transform:scale(1);opacity:1;}}
+/* Date row */
+.date-row{display:flex;gap:8px;align-items:flex-end;}
+.date-row .fld{flex:0 1 135px;}
+.date-row .fld input[type=date]{font-size:11px;padding:6px 7px;}
+.date-btns-row{display:flex;gap:4px;align-items:flex-end;padding-bottom:1px;flex-shrink:0;}
+.date-btns-row .date-btn{height:31px;padding:0 9px;font-size:10px;}
+.btn-mostrador{margin-left:auto;height:31px;padding:0 11px;border:1.5px solid #444;border-radius:5px;background:#2a2a2a;color:#999;font-family:var(--sans);font-size:10px;font-weight:700;cursor:pointer;letter-spacing:.04em;white-space:nowrap;transition:all .15s;align-self:flex-end;}
+.btn-mostrador:hover{border-color:#888;color:#ddd;}
+.btn-mostrador-on{background:#e8f4e8!important;border-color:#4caf50!important;color:#1a4a1a!important;}
+/* Banner buttons */
+.banner-btns{display:flex;flex-direction:column;gap:5px;flex-shrink:0;align-items:flex-end;}
+.btn-fill-sec{padding:5px 12px;background:#1c1c1e;color:#aaa;border:1px solid #333;border-radius:5px;font-size:10px;font-weight:600;cursor:pointer;white-space:nowrap;}
+.btn-fill-sec:hover{background:#333;color:#fff;border-color:#555;}
+/* Consultar: expandible ficha cliente */
+.consult-ficha-hdr{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;background:var(--white);border:1px solid var(--bdr);border-radius:8px;cursor:pointer;margin-bottom:10px;font-size:11px;font-weight:600;color:#666;user-select:none;transition:border-color .15s;}
+.consult-ficha-hdr:hover{border-color:#444;color:var(--sub);}
+.consult-ficha-hdr-on{border-color:#444;color:var(--text);}
+.consult-ficha-chev{font-size:10px;transition:transform .2s;}
+.consult-ficha-chev-on{transform:rotate(180deg);}
+.consult-ficha-body{display:none;margin-bottom:10px;}
+.consult-ficha-body-on{display:block;}
+.cf-mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;}
+.cf-mini-stat{background:#161616;border:1px solid var(--bdr);border-radius:7px;padding:8px 10px;text-align:center;}
+.cf-mini-stat-val{font-size:15px;font-weight:700;color:var(--text);font-family:var(--sans);}
+.cf-mini-stat-lbl{font-size:9px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.06em;margin-top:2px;}
+</style>
 </head>
 <body>
-<div id="root"></div>
+<datalist id="loc-list"></datalist>
 
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<!-- Vendor modal -->
+<div id="vm" class="vm-ov">
+  <div class="vm-box">
+    <div class="vm-logo"><svg width="120" height="46" viewBox="0 0 120 46" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="46" fill="#cb0000" rx="4"/><text x="60" y="33" font-family="Arial Black,Arial" font-weight="900" font-size="26" fill="white" text-anchor="middle" letter-spacing="1.5">TELMO</text></svg></div>
+    <h2>Sistema de Pedidos</h2>
+    <p>Quien esta usando esta PC?</p>
+    <div class="vm-btns">
+      <button class="vm-btn" id="vc-Rodrigo">Rodrigo</button>
+      <button class="vm-btn" id="vc-Mica">Mica</button>
+      <button class="vm-btn" id="vc-Brisa">Brisa</button>
+    </div>
+  </div>
+</div>
 
-<script type="text/babel" src="manual/tweaks-panel.jsx"></script>
-<script type="text/babel" src="manual/tweaks.jsx"></script>
-<script type="text/babel" src="manual/sections-a.jsx"></script>
-<script type="text/babel" src="manual/sections-b.jsx"></script>
-<script type="text/babel" src="manual/sections-c.jsx"></script>
-<script type="text/babel" src="manual/app.jsx"></script>
+<!-- Confirm modal -->
+<div id="cm" class="modal-ov">
+  <div class="modal modal-wide">
+    <div class="modal-top">
+      <div class="modal-badge"><span class="modal-dot"></span><span class="modal-badge-t">Pedido guardado</span></div>
+      <div class="modal-id" id="cm-id">#-</div>
+    </div>
+    <div class="modal-cols">
+      <div class="modal-left" id="cm-summary"></div>
+      <div class="modal-right">
+        <div class="wa-header">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.563 4.14 1.535 5.875L0 24l6.326-1.496A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.794 9.794 0 01-5.064-1.406l-.363-.215-3.754.887.938-3.645-.236-.374A9.772 9.772 0 012.182 12C2.182 6.574 6.574 2.182 12 2.182S21.818 6.574 21.818 12 17.426 21.818 12 21.818z"/></svg>
+          Vista previa mensaje
+        </div>
+        <div class="wa-chat">
+          <div class="wa-bubble" id="cm-bubble"></div>
+          <div class="wa-time" id="cm-time"></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-acts">
+      <button class="btn-cancel" id="btn-edit-order">✏️ Editar pedido</button>
+      <button class="btn-copy"   id="btn-copy">Copiar para WhatsApp</button>
+      <button class="btn-new"    id="btn-new">Nuevo pedido</button>
+    </div>
+  </div>
+</div>
 
-<script type="text/babel">
-  // Mount once all babel scripts have run
-  const tryMount = () => {
-    if (window.App && window.SectionIntro && window.SectionLogo && window.SectionSafe
-        && window.SectionColor && window.SectionType && window.SectionIcon
-        && window.SectionVoice && window.SectionApps && window.SectionMocks
-        && window.SectionOutro && window.TweaksApp) {
-      const root = ReactDOM.createRoot(document.getElementById("root"));
-      root.render(<window.App />);
-    } else {
-      setTimeout(tryMount, 40);
-    }
+<!-- Topbar -->
+<div class="topbar">
+  <div class="tb-left">
+    <svg width="100" height="38" viewBox="0 0 120 46" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="46" fill="#cb0000" rx="4"/><text x="60" y="33" font-family="Arial Black,Arial" font-weight="900" font-size="26" fill="white" text-anchor="middle" letter-spacing="1.5">TELMO</text></svg>
+    <div class="topbar-div"></div>
+    <div class="topbar-tabs">
+      <button class="ttab ttab-on" id="tab-nuevo">Cargar venta</button>
+      <button class="ttab" id="tab-pedidos">Pedidos</button>
+      <button class="ttab" id="tab-consultar">Consultar pedido</button>
+      <button class="ttab" id="tab-clientes">Clientes</button>
+      <button class="ttab" id="tab-gestion">Gestión</button>
+      <button class="ttab" id="tab-comisiones">Comisiones</button>
+    </div>
+  </div>
+  <div class="tb-mid">
+    <div class="tb-stat">
+      <span class="tb-stat-lbl">Facturación hoy</span>
+      <span class="tb-stat-val" id="today-val">$0</span>
+    </div>
+    <div class="tb-sep"></div>
+    <div class="tb-stat">
+      <span class="tb-stat-lbl">Pedidos</span>
+      <span class="tb-stat-val" id="today-cnt">0</span>
+    </div>
+    <div class="tb-sep tb-sep-lg"></div>
+    <div class="tb-stat">
+      <span class="tb-stat-lbl">Mi comisión</span>
+      <span class="tb-stat-val tb-stat-com" id="today-com">$0</span>
+    </div>
+    <div class="tb-sep"></div>
+    <div class="tb-stat">
+      <span class="tb-stat-lbl">Mis pedidos</span>
+      <span class="tb-stat-val" id="today-vd-cnt">0</span>
+    </div>
+  </div>
+  <div class="tb-right">
+    <button class="btn-print-lbl" onclick="irAEtiquetas()" title="Imprimir etiquetas pendientes">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      Etiquetas
+    </button>
+    <div class="topbar-div"></div>
+    <span class="vendor-lbl">Vendedor</span>
+    <div class="vendor-btns">
+      <button class="vendor-btn" id="vb-Rodrigo">Rodrigo</button>
+      <button class="vendor-btn" id="vb-Mica">Mica</button>
+      <button class="vendor-btn" id="vb-Brisa">Brisa</button>
+    </div>
+  </div>
+</div>
+
+<div class="split">
+
+  <!-- ══ PANEL NUEVO PEDIDO ══ -->
+  <div class="panel panel-on" id="panel-nuevo">
+
+    <div id="client-banner"></div>
+
+    <div class="sec-lbl">Pedido</div>
+    <div class="card"><div class="card-body">
+      <div class="date-row">
+        <div class="fld"><label>Carga</label><input type="date" id="fecha"></div>
+        <div class="fld"><label>Entrega</label><input type="date" id="fechaEntrega"></div>
+        <div class="date-btns-row">
+          <button class="date-btn" id="btn-hoy">Hoy</button>
+          <button class="date-btn" id="btn-manana">Mañana</button>
+          <button class="date-btn" id="btn-lunes">Prox. lunes</button>
+          <div class="sched-n" id="sched-n">📅 PROGRAMADO</div>
+        </div>
+        <button class="btn-mostrador" id="btn-mostrador" onclick="toggleMostrador()">🏪 Mostrador</button>
+      </div>
+    </div></div>
+
+    <div class="sec-lbl">Cliente</div>
+    <div class="card"><div class="card-body gap">
+      <div class="g2">
+        <div class="fld"><label>Telefono</label><input type="text" id="telefono" placeholder="1154321234" autocomplete="off"></div>
+        <div class="fld"><label>DNI / CUIT</label><input type="text" id="dniCuit" placeholder="-"></div>
+      </div>
+      <div class="fld"><label>Nombre</label><input type="text" id="cliente" placeholder="Apellido, Nombre"></div>
+    </div></div>
+
+    <div class="sec-lbl">Entrega</div>
+    <div class="card"><div class="card-body gap">
+      <div class="fld">
+        <label>Direccion</label>
+        <div id="addr-ac-wrap"></div>
+        <input type="hidden" id="direccion">
+        <span class="fld-hint">Al elegir sugerencia se completan localidad y CP</span>
+      </div>
+      <div class="fld"><label>Entre calles</label><input type="text" id="entreCalles" placeholder="Av. X y Av. Y"></div>
+      <div class="g2">
+        <div class="fld">
+          <label>Provincia</label>
+          <select id="provincia">
+            <option value="">- Provincia -</option>
+            <option value="Buenos Aires">Buenos Aires</option><option value="CABA">CABA</option>
+            <option value="Catamarca">Catamarca</option><option value="Chaco">Chaco</option>
+            <option value="Chubut">Chubut</option><option value="Cordoba">Cordoba</option>
+            <option value="Corrientes">Corrientes</option><option value="Entre Rios">Entre Rios</option>
+            <option value="Formosa">Formosa</option><option value="Jujuy">Jujuy</option>
+            <option value="La Pampa">La Pampa</option><option value="La Rioja">La Rioja</option>
+            <option value="Mendoza">Mendoza</option><option value="Misiones">Misiones</option>
+            <option value="Neuquen">Neuquen</option><option value="Rio Negro">Rio Negro</option>
+            <option value="Salta">Salta</option><option value="San Juan">San Juan</option>
+            <option value="San Luis">San Luis</option><option value="Santa Cruz">Santa Cruz</option>
+            <option value="Santa Fe">Santa Fe</option><option value="Santiago del Estero">Santiago del Estero</option>
+            <option value="Tierra del Fuego">Tierra del Fuego</option><option value="Tucuman">Tucuman</option>
+          </select>
+        </div>
+        <div class="fld"><label>Localidad</label><input type="text" id="localidad" placeholder="Localidad" list="loc-list" autocomplete="off"></div>
+      </div>
+      <div class="g3">
+        <div class="fld"><label>CP</label><input type="text" id="cp" placeholder="1234" maxlength="4"></div>
+        <div class="fld s2"><label>Horario</label><input type="text" id="horario" placeholder="14:00 a 18:00hs"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 2fr;gap:10px;">
+        <div class="fld"><label>Piso</label><input type="text" id="piso" placeholder="3°"></div>
+        <div class="fld"><label>Depto</label><input type="text" id="depto" placeholder="B"></div>
+        <div class="fld"><label>Referencia</label><input type="text" id="referencia" placeholder="Barrio Los Pinos, lote 5..."></div>
+      </div>
+    </div></div>
+
+    <div class="sec-lbl">Productos</div>
+    <div class="card"><div class="card-body">
+      <div id="prods"></div>
+      <button class="btn-add" id="btn-add">+ Agregar producto</button>
+      <div class="total-section">
+        <div class="disc-global">
+          <label>Descuento</label>
+          <div class="disc-global-wrap">
+            <input type="number" id="desc-global" class="disc-global-inp" placeholder="0" min="0" value="0">
+            <button class="disc-global-tog" id="desc-global-tog">%</button>
+          </div>
+        </div>
+        <div class="total-final">
+          <span class="total-lbl">Total</span>
+          <span class="total-val" id="total">$ 0</span>
+        </div>
+      </div>
+    </div></div>
+
+  </div>
+
+  <!-- ══ PANEL PEDIDOS ══ -->
+  <div class="panel" id="panel-pedidos">
+    <div class="ped-filters" id="ped-filters">
+      <button class="ped-filter ped-filter-on" data-gest="todos">Todos</button>
+      <button class="ped-filter ped-filter-prep" data-gest="Para preparar">Para preparar</button>
+      <button class="ped-filter ped-filter-ag" data-gest="Agendado">Agendado</button>
+      <button class="ped-filter ped-filter-listo" data-gest="Preparado">Preparado</button>
+      <button class="ped-filter ped-filter-cam" data-gest="En camino">En camino</button>
+      <button class="ped-filter ped-filter-fin" data-gest="Finalizado">Finalizado</button>
+      <button class="ped-filter" data-gest="Fallido">Fallido</button>
+      <button class="ped-filter" data-gest="Cancelado">Cancelado</button>
+      <button class="ped-filter" data-gest="Error">Error</button>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="ped-table-wrap">
+          <table class="ped-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th>Localidad</th>
+                <th>Monto</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody id="ped-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PANEL CONSULTAR ══ -->
+  <div class="panel" id="panel-consultar">
+
+    <div class="search-bar">
+      <input type="number" id="search-id" placeholder="ID del pedido" min="1">
+      <button class="btn-search" id="btn-search">Buscar</button>
+    </div>
+
+    <div id="order-found" class="order-found">
+
+      <!-- Nombre del cliente con link a ficha -->
+      <div id="consult-cliente-header" style="display:none;margin-bottom:10px;">
+        <span id="consult-cliente-nombre" style="font-size:16px;font-weight:700;color:var(--text);cursor:pointer;border-bottom:1.5px dashed var(--red);" onclick="irAClienteDesdeConsulta()"></span>
+      </div>
+
+      <!-- Ficha expandible del cliente -->
+      <div id="consult-ficha-wrap" style="display:none">
+        <div class="consult-ficha-hdr" id="consult-ficha-hdr">
+          <span id="consult-ficha-title">👤 Ficha del cliente</span>
+          <span class="consult-ficha-chev" id="consult-ficha-chev">▾</span>
+        </div>
+        <div id="consult-ficha-body" class="consult-ficha-body"></div>
+      </div>
+
+      <div class="sec-lbl">Estado</div>
+      <div class="card"><div class="card-body">
+        <div class="fld"><label>Gestion</label>
+          <select class="gestion-sel" id="edit-gestion">
+            <option value="Para preparar">Para preparar</option>
+            <option value="Agendado">Agendado</option>
+            <option value="Preparado">Preparado</option>
+            <option value="En camino">En camino</option>
+            <option value="Finalizado">Finalizado</option>
+            <option value="Fallido">Fallido</option>
+            <option value="Cancelado">Cancelado</option>
+            <option value="Error">Error</option>
+          </select>
+        </div>
+      </div></div>
+
+      <div class="sec-lbl">Pedido</div>
+      <div class="card"><div class="card-body g2">
+        <div class="fld"><label>Fecha carga</label><input type="date" id="edit-fecha"></div>
+        <div class="fld"><label>Fecha entrega</label><input type="date" id="edit-fechaEntrega"></div>
+      </div></div>
+
+      <div class="sec-lbl">Cliente</div>
+      <div class="card"><div class="card-body gap">
+        <div class="g2">
+          <div class="fld"><label>Telefono</label><input type="text" id="edit-telefono"></div>
+          <div class="fld"><label>DNI / CUIT</label><input type="text" id="edit-dniCuit"></div>
+        </div>
+        <div class="fld"><label>Nombre</label><input type="text" id="edit-cliente"></div>
+      </div></div>
+
+      <div class="sec-lbl">Entrega</div>
+      <div class="card"><div class="card-body gap">
+        <div class="g2">
+          <div class="fld"><label>Provincia</label>
+            <select id="edit-provincia">
+              <option value="">- Provincia -</option>
+              <option value="Buenos Aires">Buenos Aires</option><option value="CABA">CABA</option>
+              <option value="Catamarca">Catamarca</option><option value="Chaco">Chaco</option>
+              <option value="Chubut">Chubut</option><option value="Cordoba">Cordoba</option>
+              <option value="Corrientes">Corrientes</option><option value="Entre Rios">Entre Rios</option>
+              <option value="Formosa">Formosa</option><option value="Jujuy">Jujuy</option>
+              <option value="La Pampa">La Pampa</option><option value="La Rioja">La Rioja</option>
+              <option value="Mendoza">Mendoza</option><option value="Misiones">Misiones</option>
+              <option value="Neuquen">Neuquen</option><option value="Rio Negro">Rio Negro</option>
+              <option value="Salta">Salta</option><option value="San Juan">San Juan</option>
+              <option value="San Luis">San Luis</option><option value="Santa Cruz">Santa Cruz</option>
+              <option value="Santa Fe">Santa Fe</option><option value="Santiago del Estero">Santiago del Estero</option>
+              <option value="Tierra del Fuego">Tierra del Fuego</option><option value="Tucuman">Tucuman</option>
+            </select>
+          </div>
+          <div class="fld"><label>Localidad</label><input type="text" id="edit-localidad"></div>
+        </div>
+        <div class="g3">
+          <div class="fld"><label>CP</label><input type="text" id="edit-cp"></div>
+          <div class="fld s2"><label>Horario</label><input type="text" id="edit-horario"></div>
+        </div>
+        <div class="fld"><label>Direccion</label><input type="text" id="edit-direccion"></div>
+        <div class="fld"><label>Entre calles</label><input type="text" id="edit-entre" placeholder="Av. X y Av. Y"></div>
+        <div class="g2">
+          <div class="fld"><label>Piso</label><input type="text" id="edit-piso"></div>
+          <div class="fld"><label>Depto</label><input type="text" id="edit-depto"></div>
+        </div>
+        <div class="fld"><label>Referencia</label><input type="text" id="edit-ref" placeholder="Barrio, lote, referencia..."></div>
+      </div></div>
+
+      <div class="sec-lbl">Productos (SKUs)</div>
+      <div class="card"><div class="card-body gap">
+        <div class="ep-head"><span>SKU</span><span>Nombre</span><span>Cant.</span><span>Precio</span><span>Subtotal</span><span></span></div>
+        <div id="edit-prods"></div>
+        <button class="btn-add" id="btn-add-edit-prod" type="button">+ Agregar producto</button>
+        <div class="total-section">
+          <div class="disc-global">
+            <label>Descuento</label>
+            <div class="disc-global-wrap">
+              <input type="number" id="edit-desc" class="disc-global-inp" value="0" min="0">
+              <button class="disc-global-tog" id="edit-desc-tog" type="button">%</button>
+            </div>
+          </div>
+          <div class="total-final">
+            <span class="total-lbl">Total</span>
+            <span class="total-val" id="edit-total">$ 0</span>
+          </div>
+        </div>
+        <input type="hidden" id="edit-valor">
+      </div></div>
+
+      <div class="sec-lbl">Post venta</div>
+      <div class="card"><div class="card-body">
+        <div class="fld"><textarea id="edit-postVenta" style="min-height:60px" placeholder="Garantía, problema, aclaración post-entrega..."></textarea></div>
+      </div></div>
+
+      <div id="order-historial-wrap" style="display:none">
+        <div class="sec-lbl">Historial de estados</div>
+        <div class="card"><div class="card-body">
+          <div class="hist-timeline" id="order-historial-timeline"></div>
+        </div></div>
+      </div>
+
+      <div class="edit-acts">
+        <button class="btn-cancel" id="btn-cancel-edit">Cancelar</button>
+        <button class="btn-cancel" id="btn-print-single" onclick="imprimirEtiquetaPedidoActual()">🖨️ Imprimir etiqueta</button>
+        <button class="btn-cancel" id="btn-gen-msg">Generar mensaje WhatsApp</button>
+        <button class="btn-cancel" id="btn-duplicar-pedido">📋 Duplicar pedido</button>
+        <button class="btn-update" id="btn-update">Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PANEL CLIENTES ══ -->
+  <div class="panel" id="panel-clientes">
+
+    <div class="search-bar">
+      <input type="text" id="search-client" placeholder="Tel, DNI o nombre...">
+      <button class="btn-search" id="btn-search-client">Buscar</button>
+    </div>
+
+    <!-- Ficha -->
+    <div id="client-ficha" class="order-found">
+
+      <div class="client-header">
+        <div class="client-name" id="cf-nombre">-</div>
+        <div class="client-tags" id="cf-tags"></div>
+        <div class="client-stats">
+          <div class="stat-box"><div class="stat-val" id="cf-total-ped">0</div><div class="stat-lbl">Pedidos</div></div>
+          <div class="stat-box"><div class="stat-val" id="cf-total-comp">$0</div><div class="stat-lbl">Total comprado</div></div>
+          <div class="stat-box"><div class="stat-val" id="cf-frec">0</div><div class="stat-lbl">Pedidos/mes</div></div>
+          <div class="stat-box"><div class="stat-val" id="cf-dias">0d</div><div class="stat-lbl">Dias sin comprar</div></div>
+        </div>
+      </div>
+
+      <div class="sec-lbl">Datos del cliente (editables)</div>
+      <div class="card"><div class="card-body gap">
+        <div class="g2">
+          <div class="fld"><label>Telefono</label><input type="text" id="cf-tel"></div>
+          <div class="fld"><label>DNI / CUIT</label><input type="text" id="cf-dni"></div>
+        </div>
+        <div class="fld"><label>Nombre</label><input type="text" id="cf-nom"></div>
+        <div class="g2">
+          <div class="fld"><label>Provincia</label><input type="text" id="cf-prov"></div>
+          <div class="fld"><label>Localidad</label><input type="text" id="cf-loc"></div>
+        </div>
+        <div class="g2">
+          <div class="fld"><label>CP</label><input type="text" id="cf-cp"></div>
+          <div class="fld"><label>Direccion</label><input type="text" id="cf-dir"></div>
+        </div>
+        <div class="g2">
+          <div class="fld"><label>Piso</label><input type="text" id="cf-piso"></div>
+          <div class="fld"><label>Depto</label><input type="text" id="cf-depto"></div>
+        </div>
+        <div class="g2">
+          <div class="fld"><label>Referencia</label><input type="text" id="cf-ref"></div>
+          <div class="fld"><label>Entre calles</label><input type="text" id="cf-entre" placeholder="Av. X y Av. Y"></div>
+        </div>
+        <div class="fld"><label>Notas internas</label><textarea id="cf-notas" style="min-height:50px"></textarea></div>
+        <div style="display:flex;gap:8px;margin-top:4px;">
+          <button class="btn-update" id="btn-save-client" style="flex:1">Guardar datos</button>
+          <button class="btn-update" id="btn-nuevo-pedido-cliente" style="flex:1;background:#1a3a1a;border:1.5px solid var(--green);color:var(--green);">+ Nuevo pedido</button>
+        </div>
+      </div></div>
+
+      <div class="sec-lbl">Ultimos pedidos</div>
+      <div class="card"><div class="card-body">
+        <table class="orders-table" id="cf-orders-table">
+          <thead><tr><th>#</th><th>Fecha</th><th>Estado</th><th>Monto</th></tr></thead>
+          <tbody id="cf-orders-body"></tbody>
+        </table>
+      </div></div>
+
+      <div class="sec-lbl">Productos mas comprados</div>
+      <div class="card"><div class="card-body">
+        <table class="orders-table" id="cf-skus-table">
+          <thead><tr><th>SKU</th><th>Veces</th></tr></thead>
+          <tbody id="cf-skus-body"></tbody>
+        </table>
+      </div></div>
+
+    </div>
+
+    <!-- Ranking -->
+    <div class="ranking-toggle" id="ranking-toggle">
+      <span>Ranking de clientes</span>
+      <small>Top 50 por monto</small>
+    </div>
+    <div class="card ranking-list" id="ranking-list">
+      <div class="card-body" style="padding-bottom:4px;">
+        <select id="ranking-period" style="width:100%;border:1.5px solid var(--bdr);border-radius:6px;padding:6px 10px;font-family:var(--sans);font-size:11px;font-weight:600;color:#f0f0f0;background:#181818;outline:none;margin-bottom:10px;display:block;">
+          <option value="total">Total historico</option>
+          <option value="anio">Este anio</option>
+          <option value="trimestre">Ultimo trimestre</option>
+          <option value="mes_ant">Mes pasado</option>
+          <option value="mes">Este mes</option>
+        </select>
+        <div id="ranking-body">Cargando...</div>
+      </div>
+    </div>
+
+    <!-- Guia etiquetas -->
+    <div class="ranking-toggle" id="etiq-toggle" style="margin-top:8px;">
+      <span>Guia de etiquetas</span><small>Que significa cada una</small>
+    </div>
+    <div class="card ranking-list" id="etiq-list">
+      <div class="card-body" style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:flex-start;gap:8px;"><span class="tag tag-nuevo">Nuevo</span><span style="font-size:11px;color:var(--sub);">Primera compra hace menos de 90 dias (independientemente del total de pedidos).</span></div>
+        <div style="display:flex;align-items:flex-start;gap:8px;"><span class="tag tag-recurrente">Recurrente</span><span style="font-size:11px;color:var(--sub);">Compro 2 o mas veces en total.</span></div>
+        <div style="display:flex;align-items:flex-start;gap:8px;"><span class="tag tag-inactivo">Inactivo</span><span style="font-size:11px;color:var(--sub);">Sin compras en los ultimos 90 dias.</span></div>
+        <div style="display:flex;align-items:flex-start;gap:8px;"><span class="tag tag-riesgo">Riesgo</span><span style="font-size:11px;color:var(--sub);">Tasa de pedidos fallidos mayor al 50% y los 2 ultimos no fueron exitosos consecutivamente.</span></div>
+        <div style="display:flex;align-items:flex-start;gap:8px;"><span class="tag tag-vip">VIP</span><span style="font-size:11px;color:var(--sub);">Top 20% por monto total comprado (minimo 5 clientes en la base).</span></div>
+        <div style="display:flex;align-items:flex-start;gap:8px;"><span class="tag tag-recuperar">Recuperar</span><span style="font-size:11px;color:var(--sub);">Tuvo 1 o mas pedidos con estado "Error" — el problema fue nuestro. Merece atencion especial.</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ PANEL COMISIONES ══ -->
+  <div class="panel" id="panel-comisiones">
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <div class="sec-lbl" style="margin:0;">Historial de comisiones</div>
+      <button class="btn-search" id="btn-com-refresh" style="padding:6px 14px;font-size:11px;">Actualizar</button>
+    </div>
+    <div class="card"><div class="card-body" style="overflow-x:auto;padding:10px 8px;">
+      <div id="com-history-body" style="font-size:11px;">Cargando...</div>
+    </div></div>
+
+  </div>
+
+  <!-- ══ PANEL GESTIÓN ══ -->
+  <div class="panel" id="panel-gestion">
+
+    <!-- Subsolapas -->
+    <div class="subtab-bar">
+      <button class="subtab subtab-on" id="subtab-despacho" onclick="switchSubtab('despacho')">Despacho</button>
+      <button class="subtab" id="subtab-cobros" onclick="switchSubtab('cobros')">Cobros</button>
+      <button class="subtab" id="subtab-etiquetas" onclick="switchSubtab('etiquetas')">Etiquetas</button>
+    </div>
+
+    <!-- ── Subpanel Despacho ── -->
+    <div class="subpanel subpanel-on" id="subpanel-despacho">
+      <div class="dispatch-actions">
+        <button class="dispatch-sel-all" id="btn-sel-all" onclick="toggleSelectAll()">Seleccionar todo</button>
+        <span class="dispatch-count" id="dispatch-count">0 seleccionados</span>
+        <button class="btn-dispatch" id="btn-preparado" onclick="marcarSeleccionados('Preparado')" disabled style="background:#7EC8E3;color:#051820;">
+          📦 Marcar Preparado
+        </button>
+        <button class="btn-dispatch" id="btn-en-camino" onclick="marcarSeleccionados('En camino')" disabled>
+          🚚 Marcar En camino
+        </button>
+        <button class="btn-dispatch" id="btn-imprimir-despacho" onclick="imprimirEtiquetasDespacho()" disabled style="background:#252525;border:1.5px solid #444;">🖨️ Imprimir etiquetas</button>
+        <button class="btn-dispatch" id="btn-recargar-dispatch" onclick="cargarDespacho()" style="background:#252525;border:1.5px solid var(--bdr);">↻ Actualizar</button>
+      </div>
+      <div class="card">
+        <div class="card-body" style="padding:0;">
+          <div style="overflow-x:auto;">
+            <table class="dispatch-table">
+              <thead>
+                <tr>
+                  <th style="width:32px;"><input type="checkbox" id="chk-all" class="dispatch-chk" onchange="toggleSelectAll()"></th>
+                  <th>#</th>
+                  <th>Cliente</th>
+                  <th>Localidad</th>
+                  <th>Entrega</th>
+                  <th>Estado</th>
+                  <th>Monto</th>
+                </tr>
+              </thead>
+              <tbody id="dispatch-tbody">
+                <tr><td colspan="7" class="ped-empty">Cargando...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Subpanel Cobros ── -->
+    <div class="subpanel" id="subpanel-cobros">
+
+
+      <!-- Buscar pedido -->
+      <div class="cobro-search">
+        <input type="number" id="cobro-search-id" placeholder="ID del pedido" min="1" onkeydown="if(event.keyCode===13)buscarPedidoCobro()">
+        <button class="btn-search" onclick="buscarPedidoCobro()">Buscar</button>
+      </div>
+
+      <!-- Formulario de cobro -->
+      <div class="cobro-form" id="cobro-form">
+        <div class="cobro-order-info">
+          <div class="cobro-order-id" id="cobro-order-id">#-</div>
+          <div class="cobro-order-name" id="cobro-order-name">-</div>
+          <div class="cobro-order-sub" id="cobro-order-sub">-</div>
+        </div>
+
+        <div class="sec-lbl">Cobro</div>
+        <div class="card"><div class="card-body gap">
+
+          <!-- Caja 1 + Monto 1 -->
+          <div class="cobro-row">
+            <div class="fld">
+              <label>Caja 1</label>
+              <select id="cobro-caja1" class="gestion-sel" onchange="onCajaChange()"></select>
+            </div>
+            <div class="fld">
+              <label>Monto 1</label>
+              <input type="number" id="cobro-monto1" class="mn-inp" placeholder="0" min="0" oninput="onMontoChange()">
+            </div>
+          </div>
+
+          <!-- N° Operación (solo si Caja 1 es transferencia) -->
+          <div class="nr-op-wrap" id="nr-op-wrap1">
+            <div class="fld">
+              <label>N° Operación</label>
+              <input type="text" id="cobro-nrop" class="mn-inp" placeholder="Número único de la transferencia" oninput="verificarNrOp(this.value)">
+            </div>
+            <div class="cobro-status" id="cobro-nrop-status"></div>
+          </div>
+
+          <!-- Caja 2 (opcional) -->
+          <div class="cobro-row">
+            <div class="fld">
+              <label>Caja 2 <span style="color:var(--muted);font-weight:400">(opcional)</span></label>
+              <select id="cobro-caja2" class="gestion-sel" onchange="onCajaChange()"></select>
+            </div>
+            <div class="fld">
+              <label>Monto 2</label>
+              <input type="number" id="cobro-monto2" class="mn-inp" placeholder="0" min="0" disabled oninput="onMontoChange()">
+            </div>
+          </div>
+
+
+          <!-- Total cobrado display -->
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-top:1.5px solid var(--bdr-s);margin-top:2px;">
+            <span style="font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);">Total a cobrar</span>
+            <span class="total-val" id="cobro-total-display" style="font-size:18px;">$ 0</span>
+          </div>
+
+          <button class="btn-cobro-save" onclick="guardarCobro()">Guardar cobro</button>
+        </div></div>
+
+        <!-- Cobro existente (si ya tiene) -->
+        <div id="cobro-existente" style="display:none;">
+          <div class="sec-lbl">Cobro registrado</div>
+          <div class="card"><div class="card-body gap" id="cobro-existente-body"></div></div>
+        </div>
+
+      </div>
+    </div><!-- /subpanel-cobros -->
+
+    <!-- ── Subpanel Etiquetas ── -->
+    <div class="subpanel" id="subpanel-etiquetas">
+      <div class="dispatch-actions">
+        <button class="dispatch-sel-all" id="etq-sel-all" onclick="toggleEtqSelectAll()">Seleccionar todo</button>
+        <span class="dispatch-count" id="etq-count">0 seleccionadas</span>
+        <button class="btn-dispatch" id="etq-print-btn" onclick="ejecutarImpresion()" disabled style="background:#252525;border:1.5px solid #444;">🖨️ Imprimir seleccionadas</button>
+        <button class="btn-dispatch" onclick="cargarEtiquetasPanel()" style="background:#252525;border:1.5px solid var(--bdr);">↻ Actualizar</button>
+      </div>
+      <div class="card">
+        <div class="card-body" style="padding:0;">
+          <div id="etq-list" style="overflow-y:auto;max-height:calc(100vh - 290px);">
+            <div class="ped-empty" style="padding:24px;text-align:center;">Abrí esta sección para cargar las etiquetas</div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /subpanel-etiquetas -->
+
+  </div><!-- /panel-gestion -->
+
+  <!-- MAP -->
+  <div class="map-col">
+    <iframe id="map-frame" src="https://maps.google.com/maps?q=Telmo+Herramientas&output=embed&t=k&hl=es" allowfullscreen style="flex:1;border:none;width:100%;height:100%;"></iframe>
+    <div class="map-foot">
+      <span id="map-addr">Telmo Herramientas</span>
+      <span class="map-hint">Se actualiza al elegir una direccion</span>
+    </div>
+  </div>
+
+</div>
+
+<div class="sub-bar" id="sub-bar">
+  <button class="btn-clr" id="btn-clr">Limpiar</button>
+  <button class="btn-save" id="btn-save">Guardar pedido</button>
+</div>
+
+<div id="toast"></div>
+<div id="ld"><div class="ld-dots"><span></span><span></span><span></span></div><span class="ld-msg">Buscando...</span></div>
+
+<script>
+(function(){var svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" fill="#cb0000"/><text x="16" y="24" font-family="Arial Black,Arial" font-weight="900" font-size="19" fill="white" text-anchor="middle">T</text></svg>';var l=document.createElement('link');l.rel='icon';l.type='image/svg+xml';l.href='data:image/svg+xml,'+encodeURIComponent(svg);document.head.appendChild(l);})();
+var vendor=null,lastClient=null,prodN=0,phoneTm=null,skuTm={},confirmTxt='',globalDiscTipo='pct';
+var editRowIdx=-1,clientRowIdx=-1;
+var VENDORS=['Rodrigo','Mica','Brisa'];
+var nomTm=null,nomDrop=null,nomInp=null;
+
+function sget(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+function sset(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+function pad(n){return n<10?'0'+n:''+n;}
+
+/* Formatea teléfonos argentinos: 5491157046591 → "11 5704-6591" */
+function fmtPhone(raw){
+  var d=String(raw||'').replace(/\D/g,'');
+  if(d.slice(0,3)==='549')d=d.slice(3);
+  else if(d.slice(0,2)==='54')d=d.slice(2);
+  if(d.length===10){
+    if(d.slice(0,2)==='11')return '11 '+d.slice(2,6)+'-'+d.slice(6);
+    return d.slice(0,3)+' '+d.slice(3,6)+'-'+d.slice(6);
+  }
+  if(d.length===8)return d.slice(0,4)+'-'+d.slice(4);
+  return d||String(raw||'');
+}
+
+function setToday(){var t=new Date();document.getElementById('fecha').value=t.getFullYear()+'-'+pad(t.getMonth()+1)+'-'+pad(t.getDate());}
+
+function setDefaultFechaEntrega(){
+  var now=new Date(),d=new Date();
+  if(now.getHours()>=12)d.setDate(d.getDate()+1);
+  document.getElementById('fechaEntrega').value=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+}
+
+function isAgendado(dateStr){
+  if(!dateStr)return false;
+  var today=new Date();today.setHours(0,0,0,0);
+  var tomorrow=new Date(today);tomorrow.setDate(today.getDate()+1);
+  var dow=today.getDay();
+  var nextMon=new Date(today);nextMon.setDate(today.getDate()+(dow===0?1:8-dow));
+  var sel=new Date(dateStr+'T00:00:00');
+  var ds=sel.toDateString();
+  return sel>today&&ds!==today.toDateString()&&ds!==tomorrow.toDateString()&&ds!==nextMon.toDateString();
+}
+function setFechaEntrega(tipo){
+  var d=new Date();
+  if(tipo==='manana'){d.setDate(d.getDate()+1);}
+  else if(tipo==='lunes'){var day=d.getDay();d.setDate(d.getDate()+(day===0?1:8-day));}
+  var val=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+  document.getElementById('fechaEntrega').value=val;
+  document.getElementById('sched-n').className=isAgendado(val)?'sched-n sched-n-on':'sched-n';
+}
+
+/* ── VENDOR ── */
+function initVendor(){var s=sget('vendor');if(s&&VENDORS.indexOf(s)>=0){applyVendor(s);document.getElementById('vm').style.display='none';}else{document.getElementById('vm').style.display='flex';}}
+function setVendor(n){sset('vendor',n);applyVendor(n);document.getElementById('vm').style.display='none';}
+function applyVendor(n){vendor=n;for(var i=0;i<VENDORS.length;i++){var b=document.getElementById('vb-'+VENDORS[i]);if(b)b.className=(VENDORS[i]===n)?'vendor-btn vendor-btn-on':'vendor-btn';}actualizarComisionHoy();}
+
+/* ── TABS ── */
+function switchTab(tab){
+  var tabs=['nuevo','pedidos','consultar','clientes','gestion','comisiones'];
+  for(var i=0;i<tabs.length;i++){
+    var p=document.getElementById('panel-'+tabs[i]);
+    var t=document.getElementById('tab-'+tabs[i]);
+    var mapTabs=['nuevo','consultar'];
+    var showMap=mapTabs.indexOf(tab)>=0;
+    if(p)p.className=(tabs[i]===tab)?('panel panel-on'+(showMap?'':' panel-full')):'panel';
+    if(t)t.className=(tabs[i]===tab)?'ttab ttab-on':'ttab';
+  }
+  var mapEl=document.getElementById('map-frame')&&document.querySelector('.map-col');
+  if(mapEl)mapEl.className=(['nuevo','consultar'].indexOf(tab)>=0)?'map-col':'map-col map-col-hide';
+  var sb=document.getElementById('sub-bar');
+  if(sb)sb.className=tab==='nuevo'?'sub-bar':'sub-bar sub-bar-hide';
+  if(tab==='pedidos')cargarPedidos(pedidosGestFilter);
+  if(tab==='gestion')cargarDespacho();
+}
+
+/* ── SUBTABS (Gestión) ── */
+function switchSubtab(sub){
+  ['despacho','cobros','etiquetas'].forEach(function(s){
+    var p=document.getElementById('subpanel-'+s);
+    var t=document.getElementById('subtab-'+s);
+    if(p)p.className=(s===sub)?'subpanel subpanel-on':'subpanel';
+    if(t)t.className=(s===sub)?'subtab subtab-on':'subtab';
+  });
+  if(sub==='cobros')cargarMetodosPago();
+  if(sub==='etiquetas'&&!_etqLoaded)cargarEtiquetasPanel();
+}
+
+/* ── ETIQUETAS (subpanel) ── */
+var _etqLoaded=false;
+var _etqLabels=[];
+
+function irAEtiquetas(){
+  switchTab('gestion');
+  switchSubtab('etiquetas');
+}
+
+function cargarEtiquetasPanel(){
+  _etqLoaded=false;
+  var list=document.getElementById('etq-list');
+  list.innerHTML='<div class="ped-empty" style="padding:24px;text-align:center;">Cargando...</div>';
+  var btn=document.getElementById('etq-print-btn');
+  if(btn)btn.disabled=true;
+  document.getElementById('etq-count').textContent='0 seleccionadas';
+  showLoading('Cargando etiquetas...');
+  google.script.run
+    .withSuccessHandler(function(labels){
+      hideLoading();
+      _etqLoaded=true;
+      renderEtiquetasPanel_(labels||[]);
+    })
+    .withFailureHandler(function(){
+      hideLoading();
+      document.getElementById('etq-list').innerHTML='<div class="ped-empty" style="padding:24px;text-align:center;color:var(--red);">Error al cargar etiquetas</div>';
+    })
+    .getPendingLabels();
+}
+
+function cargarEtiquetasPanelConLabels_(labels){
+  _etqLoaded=true;
+  renderEtiquetasPanel_(labels||[]);
+  document.getElementById('etq-sel-all').textContent='Seleccionar todo';
+}
+
+function renderEtiquetasPanel_(labels){
+  _etqLabels=labels;
+  var list=document.getElementById('etq-list');
+  var btn=document.getElementById('etq-print-btn');
+  var cnt=document.getElementById('etq-count');
+  if(!labels.length){
+    list.innerHTML='<div class="ped-empty" style="padding:24px;text-align:center;">No hay etiquetas pendientes</div>';
+    btn.disabled=true;cnt.textContent='0 seleccionadas';return;
+  }
+  var bankOpts=function(caja1){
+    return (_banks.length?_banks:[{nombre:'MP Brisa'}]).map(function(b,bi){
+      var sel=(caja1&&b.nombre===caja1)||(!caja1&&bi===0)?' selected':'';
+      return '<option value="'+bi+'"'+sel+'>'+b.nombre+'</option>';
+    }).join('');
   };
-  tryMount();
+  var rows=labels.map(function(l,idx){
+    var fechaHtml=l.fechaCarga
+      ?'<span style="color:var(--text);font-weight:600">'+l.fechaCarga+'</span>'
+      :'<span style="color:var(--sub)">'+l.fecha+'</span>';
+    var entregaHtml='<div class="etq-entrega">'
+      +'<div class="etq-entrega-date">'+(l.fechaEntrega||'—')+'</div>'
+      +'<div class="etq-entrega-hora">'+(l.horario||'')+'</div>'
+      +'</div>';
+    return '<tr>'
+      +'<td><input type="checkbox" class="dispatch-chk etq-row-chk" data-idx="'+idx+'" checked onchange="onEtqChkChange()"></td>'
+      +'<td><span class="ped-id-link" data-id="'+l.id+'" style="cursor:pointer;color:#fff;font-family:var(--mono);font-weight:700;">#'+l.id+'</span></td>'
+      +'<td><span class="ped-nom-link" data-tel="'+l.telefono+'" style="cursor:pointer;">'+(l.cliente||'—')+'</span></td>'
+      +'<td class="ped-loc">'+(l.localidad||'—')+'</td>'
+      +'<td style="font-size:11px;">'+fechaHtml+'</td>'
+      +'<td>'+entregaHtml+'</td>'
+      +'<td class="ped-val">$'+l.valor.toLocaleString('es-AR')+'</td>'
+      +'<td>'+gestChip(l.gestion)+'</td>'
+      +'<td><select class="etq-bank-sel" data-label-idx="'+idx+'">'+bankOpts(l.caja1)+'</select></td>'
+      +'</tr>';
+  }).join('');
+  list.innerHTML='<table class="dispatch-table">'
+    +'<thead><tr>'
+    +'<th style="width:32px;"><input type="checkbox" id="etq-chk-all" class="dispatch-chk" onchange="toggleEtqSelectAll()"></th>'
+    +'<th>#</th><th>Cliente</th><th>Localidad</th><th>Cargado</th><th>Entrega</th><th>Monto</th><th>Estado</th><th>Banco</th>'
+    +'</tr></thead>'
+    +'<tbody>'+rows+'</tbody>'
+    +'</table>';
+  onEtqChkChange();
+}
+
+function onEtqChkChange(){
+  var chks=document.querySelectorAll('.etq-row-chk:checked');
+  var all=document.querySelectorAll('.etq-row-chk');
+  var n=chks.length,t=all.length;
+  document.getElementById('etq-count').textContent=n+' seleccionada'+(n!==1?'s':'');
+  document.getElementById('etq-print-btn').disabled=(n===0);
+  document.getElementById('etq-sel-all').textContent=(n===t&&t>0)?'Deseleccionar todo':'Seleccionar todo';
+  var hdrChk=document.getElementById('etq-chk-all');
+  if(hdrChk){hdrChk.checked=(n===t&&t>0);hdrChk.indeterminate=(n>0&&n<t);}
+}
+
+function toggleEtqSelectAll(){
+  var hdrChk=document.getElementById('etq-chk-all');
+  var all=document.querySelectorAll('.etq-row-chk');
+  var doSelect=hdrChk?hdrChk.checked:(document.querySelectorAll('.etq-row-chk:checked').length<all.length);
+  all.forEach(function(c){c.checked=doSelect;});
+  onEtqChkChange();
+}
+
+function ejecutarImpresion(){
+  var chks=document.querySelectorAll('.etq-row-chk:checked');
+  if(!chks.length)return;
+  var labelsWithBank=[];
+  chks.forEach(function(chk){
+    var idx=parseInt(chk.dataset.idx);
+    var l=_etqLabels[idx];
+    if(!l)return;
+    var sel=document.querySelector('.etq-bank-sel[data-label-idx="'+idx+'"]');
+    var bi=sel?parseInt(sel.value)||0:0;
+    var bank=_banks[bi]||_banks[0]||{nombre:'',alias:'TELMO.HERRAMIENTAS.2',titular:'BRISA CAROLINA CARRASCO JAIME'};
+    labelsWithBank.push(Object.assign({},l,{bank:bank}));
+  });
+  if(labelsWithBank.length)abrirVentanaEtiquetas_(labelsWithBank);
+}
+
+/* ── PEDIDOS ── */
+var pedidosGestFilter='todos';
+function cargarPedidos(gestion){
+  pedidosGestFilter=gestion||'todos';
+  // Marcar botón activo
+  var btns=document.querySelectorAll('#ped-filters .ped-filter');
+  btns.forEach(function(b){
+    b.className=b.className.replace(' ped-filter-on','');
+    if(b.dataset.gest===pedidosGestFilter)b.className+=' ped-filter-on';
+  });
+  var tbody=document.getElementById('ped-tbody');
+  tbody.innerHTML='<tr><td colspan="6" class="ped-empty">Cargando...</td></tr>';
+  google.script.run
+    .withSuccessHandler(function(orders){renderPedidos(orders);})
+    .withFailureHandler(function(){tbody.innerHTML='<tr><td colspan="6" class="ped-empty">Error al cargar</td></tr>';})
+    .getRecentOrders(pedidosGestFilter);
+}
+
+function renderPedidos(orders){
+  var tbody=document.getElementById('ped-tbody');
+  if(!orders||!orders.length){
+    tbody.innerHTML='<tr><td colspan="6" class="ped-empty">Sin pedidos para este filtro</td></tr>';
+    return;
+  }
+  tbody.innerHTML='';
+  orders.forEach(function(o){
+    var fechaHtml=o.fechaCarga
+      ?'<span style="color:var(--text);font-weight:600">'+o.fechaCarga+'</span>'
+      :'<span style="color:var(--sub)">'+o.fecha+'</span>';
+    var tr=document.createElement('tr');
+    tr.innerHTML=
+      '<td><span class="ped-id-link" data-id="'+o.id+'">#'+o.id+'</span></td>'+
+      '<td style="font-size:11px;">'+fechaHtml+'</td>'+
+      '<td><span class="ped-nom-link" data-tel="'+o.telefono+'">'+(o.cliente||'—')+'</span></td>'+
+      '<td class="ped-loc">'+(o.localidad||'—')+'</td>'+
+      '<td class="ped-val">$'+o.valor.toLocaleString('es-AR')+'</td>'+
+      '<td>'+gestChip(o.gestion)+'</td>';
+    tbody.appendChild(tr);
+  });
+}
+
+function irACliente(tel){
+  switchTab('clientes');
+  document.getElementById('search-client').value=tel;
+  buscarClienteTab();
+}
+
+function irAClienteDesdeConsulta(){
+  var tel=document.getElementById('edit-telefono').value.replace(/\D/g,'');
+  if(tel)irACliente(tel);
+}
+
+/* ── ADDRESS (Nominatim) ── */
+function initPlaces(){
+  var wrap=document.getElementById('addr-ac-wrap');
+  if(!wrap)return;
+  nomInp=document.createElement('input');
+  nomInp.type='text';nomInp.placeholder='Escribi la direccion...';nomInp.autocomplete='off';
+  nomInp.style.cssText='width:100%;border:1.5px solid #2a2a2a;border-radius:7px;padding:7px 10px;font-size:12px;font-family:Montserrat,sans-serif;outline:none;box-sizing:border-box;transition:border-color .15s;background:#181818;color:#f0f0f0;';
+  nomInp.addEventListener('focus',function(){this.style.borderColor='#cb0000';this.style.boxShadow='0 0 0 3px rgba(203,0,0,.12)';});
+  nomInp.addEventListener('blur',function(){this.style.borderColor='#2a2a2a';this.style.boxShadow='none';});
+  nomDrop=document.createElement('div');nomDrop.className='nom-drop';
+  var cont=document.createElement('div');cont.style.position='relative';
+  cont.appendChild(nomInp);cont.appendChild(nomDrop);wrap.appendChild(cont);
+  nomInp.addEventListener('input',function(){
+    clearTimeout(nomTm);var val=this.value.trim();
+    document.getElementById('direccion').value=val;
+    if(val.length<4){nomDrop.className='nom-drop';return;}
+    nomTm=setTimeout(function(){buscarNominatim(val);},400);
+  });
+  nomInp.addEventListener('keydown',function(e){
+    if(e.keyCode===13){e.preventDefault();nomDrop.className='nom-drop';var q=encodeURIComponent(this.value+', Argentina');document.getElementById('map-frame').src='https://maps.google.com/maps?q='+q+'&output=embed&t=k&hl=es&z=16';document.getElementById('map-addr').textContent=this.value;document.getElementById('direccion').value=this.value;}
+    if(e.keyCode===27)nomDrop.className='nom-drop';
+  });
+  document.addEventListener('click',function(e){if(!cont.contains(e.target))nomDrop.className='nom-drop';});
+}
+
+/* Genera variantes del query para calles con nombres abreviados en OSM.
+   Ej: "pedro manuel obligado 2985" → ["pedro manuel obligado 2985", "pedro m. obligado 2985"] */
+function genAddrVariants(raw){
+  var q=raw.trim();
+  var variants=[q];
+  var m=q.match(/^(.+?)\s+(\d+)\s*$/);
+  if(!m)return variants;
+  var street=m[1].trim(), num=m[2];
+  var words=street.split(/\s+/);
+  // Con cada palabra del medio abreviada a inicial
+  if(words.length>=3){
+    var abbr=[words[0]];
+    for(var i=1;i<words.length-1;i++) abbr.push(words[i][0].toUpperCase()+'.');
+    abbr.push(words[words.length-1]);
+    var v1=abbr.join(' ')+' '+num;
+    if(v1!==q) variants.push(v1);
+  }
+  return variants;
+}
+
+function buscarNominatim(query){
+  tryNominatimVariant(genAddrVariants(query),0);
+}
+
+function tryNominatimVariant(variants,idx){
+  if(idx>=variants.length){nomDrop.className='nom-drop';return;}
+  var q=variants[idx];
+  fetch('https://nominatim.openstreetmap.org/search?q='+encodeURIComponent(q)+'&countrycodes=ar&format=json&addressdetails=1&limit=6&accept-language=es',{headers:{'Accept':'application/json'}})
+    .then(function(r){return r.json();})
+    .then(function(res){
+      if(!res||res.length===0){tryNominatimVariant(variants,idx+1);return;}
+      nomDrop.innerHTML='';
+      res.forEach(function(r){
+        var it=document.createElement('div');it.className='nom-item';it.textContent=r.display_name;
+        it.addEventListener('mousedown',function(e){e.preventDefault();nomDrop.className='nom-drop';selNominatim(r);});
+        nomDrop.appendChild(it);
+      });
+      nomDrop.className='nom-drop nom-drop-on';
+    }).catch(function(){tryNominatimVariant(variants,idx+1);});
+}
+
+function selNominatim(r){
+  var addr=r.address||{};
+  var calle=addr.road||addr.pedestrian||addr.footway||'';
+  var num=addr.house_number||'';
+  var dir=calle+(num?' '+num:'');
+  if(!dir)dir=r.display_name.split(',')[0];
+  nomInp.value=dir;document.getElementById('direccion').value=dir;
+  var loc=addr.city||addr.town||addr.village||addr.suburb||addr.county||'';
+  if(loc)document.getElementById('localidad').value=loc;
+  if(addr.postcode)document.getElementById('cp').value=addr.postcode;
+  if(addr.state){var mp=mapProv(addr.state);var sel=document.getElementById('provincia');for(var j=0;j<sel.options.length;j++){if(sel.options[j].value===mp){sel.selectedIndex=j;break;}}}
+  applyCABARule('provincia','localidad');
+  if(r.lat&&r.lon){document.getElementById('map-frame').src='https://maps.google.com/maps?q='+encodeURIComponent(r.lat+','+r.lon)+'&output=embed&t=k&hl=es&z=16';document.getElementById('map-addr').textContent=dir+(loc?', '+loc:'');}
+}
+
+function mapProv(n){
+  if(!n)return '';
+  var norm=n.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+  if(norm.includes('autonoma')||norm.includes('caba')||norm==='ciudad de buenos aires')return 'CABA';
+  var m={'Buenos Aires':'Buenos Aires','Cordoba':'Córdoba','Corrientes':'Corrientes','Entre Rios':'Entre Ríos','Neuquen':'Neuquén','Rio Negro':'Río Negro','Santiago del Estero':'Santiago del Estero','Tierra del Fuego':'Tierra del Fuego','Tucuman':'Tucumán','Salta':'Salta','Jujuy':'Jujuy','Mendoza':'Mendoza','San Juan':'San Juan','San Luis':'San Luis','La Rioja':'La Rioja','Catamarca':'Catamarca','Chaco':'Chaco','Formosa':'Formosa','Misiones':'Misiones','Santa Fe':'Santa Fe','La Pampa':'La Pampa','Chubut':'Chubut','Santa Cruz':'Santa Cruz'};
+  var norm2=n.normalize('NFD').replace(/[̀-ͯ]/g,'');
+  return m[norm2]||m[n]||n;
+}
+
+/* ── LOCALIDADES ── */
+function loadLocs(){google.script.run.withSuccessHandler(function(ls){var dl=document.getElementById('loc-list');dl.innerHTML='';ls.forEach(function(l){var o=document.createElement('option');o.value=l;dl.appendChild(o);});}).getLocalidades();}
+
+/* ── CLIENTE BANNER ── */
+function buscarCliente(phone){
+  showLoading('Buscando cliente...');
+  google.script.run
+    .withSuccessHandler(function(r){
+      hideLoading();
+      lastClient=r.found?r:null;
+      showBanner(r);
+      if(r.found){
+        var c=document.getElementById('cliente'),d=document.getElementById('dniCuit');
+        if(!c.value)c.value=r.cliente||'';
+        if(!d.value||d.value==='-')d.value=r.dniCuit||'';
+      }
+      // Recalc en background
+      if(r.found){google.script.run.withSuccessHandler(function(stats){if(stats&&stats.found)updateBannerTags(stats.etiquetas);}).calcClientStats(phone);}
+    })
+    .searchByPhone(phone);
+}
+
+function tagClass(t){
+  if(t==='VIP')return 'tag tag-vip';
+  if(t==='Recurrente')return 'tag tag-recurrente';
+  if(t==='Inactivo')return 'tag tag-inactivo';
+  if(t==='Riesgo')return 'tag tag-riesgo';
+  if(t==='Recuperar')return 'tag tag-recuperar';
+  return 'tag tag-nuevo';
+}
+
+function buildTagsHtml(etiquetasStr){
+  if(!etiquetasStr)return '';
+  var tags=etiquetasStr.split(',');
+  return tags.map(function(t){t=t.trim();return t?'<span class="'+tagClass(t)+'">'+t+'</span>':'';}).join(' ');
+}
+
+function showBanner(r){
+  var b=document.getElementById('client-banner');
+  if(r.found){
+    var p=r.count===1?'pedido':'pedidos';
+    var tagsHtml=buildTagsHtml(r.etiquetas);
+    var hasRecup=r.etiquetas&&r.etiquetas.indexOf('Recuperar')>=0;
+    var recupHtml=hasRecup?'<div class="banner-recup">⚠️ TUVIMOS ERROR/ES CON ESTE CLIENTE — buena oportunidad para una atención especial</div>':'';
+    b.innerHTML='<div class="banner b-old">'+
+      '<div class="b-icon">⭐</div>'+
+      '<div class="b-text">'+
+        '<strong>'+(r.cliente||'Cliente conocido')+'</strong>'+
+        '<span>'+r.count+' '+p+' · Último: '+r.lastDate+' · '+r.lastStatus+'</span>'+
+        (tagsHtml?'<div class="b-tags">'+tagsHtml+'</div>':'')+
+        recupHtml+
+      '</div>'+
+      '<div class="banner-btns">'+
+        '<button class="btn-fill" id="btn-af">Autocompletar</button>'+
+        '<button class="btn-fill-sec" id="btn-ver-ficha">Ver ficha</button>'+
+      '</div>'+
+    '</div>';
+    var ba=document.getElementById('btn-af');if(ba)ba.addEventListener('click',fillCliente);
+    var bvf=document.getElementById('btn-ver-ficha');
+    if(bvf)bvf.addEventListener('click',function(){
+      var tel=document.getElementById('telefono').value.replace(/\D/g,'');
+      irACliente(tel);
+    });
+  }else{
+    b.innerHTML='<div class="banner b-new">'+
+      '<div class="b-icon">✨</div>'+
+      '<div class="b-text"><strong>Cliente nuevo</strong><span>Sin pedidos anteriores registrados</span></div>'+
+    '</div>';
+  }
+  b.style.display='block';
+}
+
+function updateBannerTags(etiquetas){
+  var bTags=document.querySelector('#client-banner .b-tags');
+  if(!bTags)return;
+  bTags.innerHTML=buildTagsHtml(etiquetas.join(', '));
+  var hasRecup=etiquetas.indexOf('Recuperar')>=0;
+  var existing=document.querySelector('#client-banner .banner-recup');
+  if(hasRecup&&!existing){
+    var bText=document.querySelector('#client-banner .b-text');
+    if(bText){var d=document.createElement('div');d.className='banner-recup';d.textContent='⚠️ TUVIMOS ERROR/ES CON ESTE CLIENTE — buena oportunidad para una atención especial';bText.appendChild(d);}
+  }
+}
+
+function hideBanner(){var b=document.getElementById('client-banner');b.style.display='none';b.innerHTML='';}
+
+function fillCliente(){
+  if(!lastClient)return;
+  var d=lastClient;
+  if(d.cliente)document.getElementById('cliente').value=d.cliente;
+  if(d.dniCuit)document.getElementById('dniCuit').value=d.dniCuit;
+  if(d.provincia)document.getElementById('provincia').value=d.provincia;
+  if(d.localidad)document.getElementById('localidad').value=d.localidad;
+  if(d.cp)document.getElementById('cp').value=d.cp;
+  if(d.horario)document.getElementById('horario').value=d.horario;
+  if(d.direccion&&nomInp){nomInp.value=d.direccion;document.getElementById('direccion').value=d.direccion;var q=encodeURIComponent(d.direccion+', '+(d.localidad||'')+', Argentina');document.getElementById('map-frame').src='https://maps.google.com/maps?q='+q+'&output=embed&t=k&hl=es&z=16';document.getElementById('map-addr').textContent=d.direccion+(d.localidad?', '+d.localidad:'');}
+  applyCABARule('provincia','localidad');
+}
+
+/* ── PRODUCTOS ── */
+function calcTotalFinal(){
+  var rows=document.querySelectorAll('#prods .prod-row'),sub=0;
+  for(var i=0;i<rows.length;i++){var rid=rows[i].id.split('-')[1];var c=parseFloat(document.getElementById('cant-'+rid)?document.getElementById('cant-'+rid).value:0)||0;var p=parseFloat(document.getElementById('prec-'+rid)?document.getElementById('prec-'+rid).value:0)||0;sub+=c*p;}
+  var desc=parseFloat(document.getElementById('desc-global')?document.getElementById('desc-global').value:0)||0;
+  var total=sub;
+  if(desc>0)total=(globalDiscTipo==='pct')?sub*(1-desc/100):sub-desc;
+  if(total<0)total=0;
+  return total;
+}
+
+function recalc(){document.getElementById('total').textContent='$ '+calcTotalFinal().toLocaleString('es-AR');}
+
+function togGlobalDisc(){globalDiscTipo=(globalDiscTipo==='pct')?'ars':'pct';var b=document.getElementById('desc-global-tog');if(b)b.textContent=globalDiscTipo==='pct'?'%':'$';recalc();}
+
+function addProd(){
+  var id=++prodN;
+  var div=document.createElement('div');div.id='prod-'+id;div.className='prod-row';
+  var sw=document.createElement('div');sw.className='sku-wrap';sw.style.position='relative';
+  var si=document.createElement('div');si.style.position='relative';
+  var sk=document.createElement('input');sk.type='text';sk.id='sku-'+id;sk.placeholder='SKU';sk.className='sku-inp mn-inp';
+  var ss=document.createElement('span');ss.id='ss-'+id;ss.className='sku-st';
+  var sd=document.createElement('div');sd.id='sd-'+id;sd.className='sku-drop';
+  si.appendChild(sk);si.appendChild(ss);sw.appendChild(si);sw.appendChild(sd);
+  var ni=document.createElement('input');ni.type='text';ni.id='nom-'+id;ni.placeholder='Nombre (o elegir SKU)';ni.className='mn-inp';ni.style.fontSize='11px';
+  var ci=document.createElement('input');ci.type='number';ci.id='cant-'+id;ci.value='1';ci.min='1';ci.className='mn-inp';
+  var pi=document.createElement('input');pi.type='number';pi.id='prec-'+id;pi.placeholder='0';pi.min='0';pi.className='mn-inp';
+  var rb=document.createElement('button');rb.className='btn-del';rb.textContent='x';
+  div.appendChild(sw);div.appendChild(ni);div.appendChild(ci);div.appendChild(pi);div.appendChild(rb);
+  document.getElementById('prods').appendChild(div);
+  (function(rid){
+    sk.addEventListener('input',function(){onSkuIn(rid);});
+    sk.addEventListener('blur',function(){closeDrop(rid,200);});
+    sk.addEventListener('keydown',function(e){if(e.keyCode===27)closeDrop(rid,0);});
+    ni.addEventListener('input',function(){var row=document.getElementById('prod-'+rid);if(row&&row.className.indexOf('prod-found')<0)row.className='prod-row';});
+    ci.addEventListener('input',recalc);pi.addEventListener('input',recalc);
+    rb.addEventListener('click',function(){var el=document.getElementById('prod-'+rid);if(el)el.parentNode.removeChild(el);recalc();});
+  })(id);
+  setTimeout(function(){sk.focus();},50);
+}
+
+function onSkuIn(id){clearTimeout(skuTm[id]);var v=document.getElementById('sku-'+id).value;if(v.length<2){closeDrop(id,0);return;}document.getElementById('ss-'+id).textContent='...';skuTm[id]=setTimeout(function(){doSku(id,v);},400);}
+
+function doSku(id,q){
+  google.script.run.withSuccessHandler(function(res){
+    document.getElementById('ss-'+id).textContent='';
+    if(!res||res.length===0){closeDrop(id,0);var nomV=document.getElementById('nom-'+id);if(!nomV||!nomV.value.trim()){var r=document.getElementById('prod-'+id);if(r)r.className='prod-row prod-bad';}return;}
+    if(res.length===1){fillProd(id,res[0]);closeDrop(id,0);return;}
+    showDrop(id,res);
+  }).searchSkuPartial(q);
+}
+
+function showDrop(id,res){
+  var el=document.getElementById('sd-'+id);el.innerHTML='';
+  var skEl=document.getElementById('sku-'+id);
+  if(skEl){var rect=skEl.getBoundingClientRect();el.style.top=(rect.bottom+3)+'px';el.style.left=rect.left+'px';}
+  res.forEach(function(r){
+    var it=document.createElement('div');it.className='sku-item';
+    it.innerHTML='<div class="sku-sku">'+r.sku+'</div><div class="sku-nom">'+r.nombre+'</div><div class="sku-prc">$'+Number(r.precio).toLocaleString('es-AR')+'</div>';
+    it.addEventListener('mousedown',function(e){e.preventDefault();fillProd(id,r);closeDrop(id,0);});
+    el.appendChild(it);
+  });
+  el.className='sku-drop sku-drop-on';
+}
+
+function closeDrop(id,d){setTimeout(function(){var el=document.getElementById('sd-'+id);if(el){el.className='sku-drop';el.innerHTML='';}},d);}
+
+function fillProd(id,p){
+  document.getElementById('sku-'+id).value=p.sku;
+  document.getElementById('nom-'+id).value=p.nombre;
+  document.getElementById('prec-'+id).value=p.precio;
+  document.getElementById('ss-'+id).textContent='v';
+  var row=document.getElementById('prod-'+id);if(row)row.className='prod-row prod-found';
+  recalc();var c=document.getElementById('cant-'+id);if(c){c.focus();c.select();}
+}
+
+function getProds(){
+  var rows=document.querySelectorAll('#prods .prod-row'),prods=[];
+  var sub=0;
+  for(var i=0;i<rows.length;i++){
+    var rid=rows[i].id.split('-')[1];
+    var nom=document.getElementById('nom-'+rid)?document.getElementById('nom-'+rid).value:'';
+    var sku=document.getElementById('sku-'+rid)?document.getElementById('sku-'+rid).value.toUpperCase():'';
+    var cnt=parseFloat(document.getElementById('cant-'+rid)?document.getElementById('cant-'+rid).value:1)||0;
+    var prc=parseFloat(document.getElementById('prec-'+rid)?document.getElementById('prec-'+rid).value:0)||0;
+    var lt=cnt*prc;
+    sub+=lt;
+    if(nom||sku)prods.push({sku:sku,nombre:nom,cantidad:cnt,precio:prc,lineTotal:lt});
+  }
+  // Calcular descuento y prorratear por producto
+  var desc=parseFloat(document.getElementById('desc-global')?document.getElementById('desc-global').value:0)||0;
+  var discountRate=0;
+  if(desc>0&&sub>0){
+    discountRate=(globalDiscTipo==='pct')?desc/100:desc/sub;
+    if(discountRate>1)discountRate=1;
+  }
+  prods.forEach(function(p){p.lineTotalFinal=p.lineTotal*(1-discountRate);});
+  return prods;
+}
+
+/* ── GUARDAR PEDIDO ── */
+function guardar(){
+  if(!vendor)return toast('Selecciona un vendedor',true);
+  var tel=document.getElementById('telefono').value,cli=document.getElementById('cliente').value,pros=getProds();
+  if(!tel.trim())return toast('Falta el telefono',true);
+  if(!cli.trim())return toast('Falta el cliente',true);
+  if(!pros.length)return toast('Agrega al menos un producto',true);
+  var btn=document.getElementById('btn-save');btn.disabled=true;btn.className='btn-save btn-save-off';btn.textContent='Guardando...';
+  var totalFinal=calcTotalFinal();
+  var data={fecha:document.getElementById('fecha').value,origen:vendor,telefono:tel.trim(),dniCuit:document.getElementById('dniCuit').value.trim()||'',cliente:cli.trim(),provincia:document.getElementById('provincia').value,localidad:document.getElementById('localidad').value.trim(),cp:document.getElementById('cp').value.trim(),direccion:document.getElementById('direccion').value.trim(),piso:document.getElementById('piso').value.trim(),depto:document.getElementById('depto').value.trim(),referencia:document.getElementById('referencia').value.trim(),entreCalles:document.getElementById('entreCalles').value.trim(),fechaEntrega:document.getElementById('fechaEntrega').value,horario:document.getElementById('horario').value.trim(),postVenta:'',productos:pros,valorTotal:totalFinal};
+  if(_mostrador){var hoy=new Date();data.localidad='Mostrador';data.direccion='Retira en local';data.cp='';data.piso='';data.depto='';data.referencia='';data.entreCalles='';data.horario='';data.fechaEntrega=hoy.getFullYear()+'-'+String(hoy.getMonth()+1).padStart(2,'0')+'-'+String(hoy.getDate()).padStart(2,'0');data.mostrador=true;}
+  google.script.run
+    .withSuccessHandler(function(res){btn.disabled=false;btn.className='btn-save';btn.textContent='Guardar pedido';if(res.ok){showConfirm(res.id,res.valorTotal,data);cargarResumenHoy();}else{toast('Error: '+res.error,true);}})
+    .withFailureHandler(function(){btn.disabled=false;btn.className='btn-save';btn.textContent='Guardar pedido';toast('Error al guardar',true);})
+    .saveRow(data);
+}
+
+function dateAR(s){var p=s.split('-');return p[2]+'/'+p[1]+'/'+p[0];}
+
+var lastSavedId=null;
+function renderWaBubble(txt){
+  var h=txt.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  h=h.replace(/\*(.*?)\*/g,'<strong>$1</strong>');
+  h=h.replace(/\n/g,'<br>');
+  return h;
+}
+function cmRow(lbl,val){
+  return '<div class="cm-row"><span class="cm-row-lbl">'+lbl+'</span><span class="cm-row-val">'+val+'</span></div>';
+}
+function showConfirm(id,vt,data){
+  lastSavedId=id;
+  var DIAS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+  var diaStr='',feStr='';
+  if(data.fechaEntrega){
+    var fd=new Date(data.fechaEntrega+'T12:00:00');
+    diaStr=DIAS[fd.getDay()];feStr=fd.getDate()+'/'+(fd.getMonth()+1);
+  }
+  var horario=String(data.horario||'').replace(/\s*hs\.?\s*$/i,'').trim();
+  var entrega=(diaStr?diaStr+' ':'')+feStr+(horario?' '+horario+' hs':'');
+  var dir=data.direccion||'-';
+  if(data.piso&&data.piso.trim())dir+=', Piso '+data.piso.trim();
+  if(data.depto&&data.depto.trim())dir+=', Dpto '+data.depto.trim();
+  if(data.entreCalles&&data.entreCalles.trim())dir+=' (e/ '+data.entreCalles.trim()+')';
+  if(data.localidad&&data.localidad.trim())dir+=', '+data.localidad.trim();
+  var refLine=data.referencia&&data.referencia.trim()?'\n'+data.referencia.trim():'';
+  var prods=data.productos||[],lines='';
+  prods.forEach(function(p){lines+='- '+String(p.nombre||p.sku).toUpperCase()+' x'+p.cantidad+'\n';});
+  if(!lines)lines='(sin productos)\n';
+  var monto='$ '+(data.valorTotal||vt||0).toLocaleString('es-AR');
+
+  // Armar mensaje sin dobles saltos
+  confirmTxt='*¡Pedido confirmado! ✅*\nTu número de pedido es: *'+id+'*\n\n📅 Entrega: '+entrega+'\n\n🚚 Dirección: '+dir+(refLine?'\n'+data.referencia.trim():'')+'\n\n📦 Productos:\n'+lines+'\n💵 Pago: '+monto+' al recibir.\n\n*Confirmame si todos los datos están bien por favor*';
+
+  // Resumen izquierda
+  var nombre=data.cliente||data.nombre||'-';
+  var summary=cmRow('Pedido','#'+id);
+  summary+=cmRow('Cliente',nombre);
+  if(data.telefono)summary+=cmRow('Teléfono',fmtPhone(data.telefono));
+  if(data.dniCuit&&data.dniCuit!=='-')summary+=cmRow('DNI/CUIT',data.dniCuit);
+  summary+=cmRow('Entrega',entrega);
+  summary+=cmRow('Dirección',dir);
+  summary+=cmRow('Pago',monto);
+  // Productos
+  var prodsHtml='<div class="cm-prods"><div class="cm-prods-lbl">Productos</div>';
+  prods.forEach(function(p){prodsHtml+='<div class="cm-prod-item"><span class="cm-prod-sku">'+String(p.sku||'').toUpperCase()+'</span> '+String(p.nombre||p.sku).toUpperCase()+' <strong>×'+p.cantidad+'</strong></div>';});
+  if(!prods.length)prodsHtml+='<div class="cm-prod-item" style="color:#555;">sin productos</div>';
+  prodsHtml+='</div>';
+  summary+=prodsHtml;
+  document.getElementById('cm-summary').innerHTML=summary;
+
+  // Bubble WA derecha
+  document.getElementById('cm-id').textContent='#'+id;
+  document.getElementById('cm-bubble').innerHTML=renderWaBubble(confirmTxt);
+  var now=new Date();document.getElementById('cm-time').textContent=pad(now.getHours())+':'+pad(now.getMinutes());
+  document.getElementById('cm').className='modal-ov modal-ov-on';
+}
+
+function generarMensajeConsultar(){
+  if(editRowIdx<0)return toast('Busca un pedido primero',true);
+  var id=parseInt(document.getElementById('search-id').value);
+  var valor=parseFloat(document.getElementById('edit-valor').value)||0;
+  var ep=getEditProds();
+  var prods=ep.filter(function(p){return p.sku;}).map(function(p){var lt=(parseFloat(p.cant)||1)*(parseFloat(p.precio)||0);return{sku:p.sku,nombre:p.nombre||p.sku,cantidad:p.cant||'1',lineTotal:lt};});
+  var data={
+    fechaEntrega:document.getElementById('edit-fechaEntrega').value,
+    horario:document.getElementById('edit-horario').value,
+    direccion:document.getElementById('edit-direccion').value,
+    localidad:document.getElementById('edit-localidad').value,
+    piso:(document.getElementById('edit-piso')||{}).value||'',
+    depto:(document.getElementById('edit-depto')||{}).value||'',
+    referencia:(document.getElementById('edit-ref')||{}).value||'',
+    entreCalles:(document.getElementById('edit-entre')||{}).value||'',
+    productos:prods,valorTotal:valor
+  };
+  showConfirm(id,valor,data);
+}
+
+/* ── CABA: localidad forzada ── */
+function applyCABARule(provSelId, locInpId){
+  var prov = document.getElementById(provSelId);
+  var loc  = document.getElementById(locInpId);
+  if(!prov || !loc) return;
+  if(prov.value === 'CABA'){
+    loc.value = 'CABA';
+    loc.readOnly = true;
+    loc.style.opacity = '0.5';
+    loc.style.cursor  = 'not-allowed';
+  } else {
+    loc.readOnly = false;
+    loc.style.opacity = '';
+    loc.style.cursor  = '';
+  }
+}
+
+/* ── MOSTRADOR ── */
+var _mostrador = false;
+function toggleMostrador(){
+  _mostrador = !_mostrador;
+  var btn = document.getElementById('btn-mostrador');
+  if(_mostrador) btn.classList.add('btn-mostrador-on');
+  else           btn.classList.remove('btn-mostrador-on');
+}
+
+/* ── RESET ── */
+function reset(){
+  var fs=['telefono','dniCuit','cliente','localidad','cp','piso','depto','referencia','entreCalles','fechaEntrega','horario'];
+  fs.forEach(function(f){var el=document.getElementById(f);if(el)el.value='';});
+  document.getElementById('provincia').value='';
+  document.getElementById('sched-n').className='sched-n';
+  document.getElementById('prods').innerHTML='';
+  if(document.getElementById('desc-global'))document.getElementById('desc-global').value='0';
+  if(document.getElementById('direccion'))document.getElementById('direccion').value='';
+  if(nomInp)nomInp.value='';
+  globalDiscTipo='pct';var dgt=document.getElementById('desc-global-tog');if(dgt)dgt.textContent='%';
+  prodN=0;lastClient=null;hideBanner();setToday();setDefaultFechaEntrega();addProd();recalc();
+  document.getElementById('horario').value='16:00 a 21:00hs';
+  document.getElementById('map-frame').src='https://maps.google.com/maps?q=Telmo+Herramientas&output=embed&t=k&hl=es';
+  document.getElementById('map-addr').textContent='Telmo Herramientas';
+  var btn=document.getElementById('btn-save');btn.disabled=false;btn.className='btn-save';btn.textContent='Guardar pedido';
+  // Reset mostrador
+  _mostrador=false;
+  var mb=document.getElementById('btn-mostrador');if(mb)mb.classList.remove('btn-mostrador-on');
+  // Reset CABA lock
+  applyCABARule('provincia','localidad');
+}
+
+/* ── IR A PEDIDO (desde ficha cliente) ── */
+function irAPedido(id){
+  switchTab('consultar');
+  document.getElementById('search-id').value=id;
+  buscarPedido();
+}
+
+/* ── DUPLICAR PEDIDO ── */
+function duplicarPedido(){
+  if(editRowIdx<0)return toast('Buscá un pedido primero',true);
+  var ep=getEditProds();
+  var prods=ep.filter(function(p){return p.sku;});
+  if(!prods.length)return toast('El pedido no tiene productos',true);
+  var tel=document.getElementById('edit-telefono').value;
+  var nom=document.getElementById('edit-cliente').value;
+  var dni=document.getElementById('edit-dniCuit').value;
+  var loc=document.getElementById('edit-localidad').value;
+  var cp=document.getElementById('edit-cp').value;
+  var dir=document.getElementById('edit-direccion').value;
+  var pisoE=(document.getElementById('edit-piso')||{}).value||'';
+  var deptoE=(document.getElementById('edit-depto')||{}).value||'';
+  var refE=(document.getElementById('edit-ref')||{}).value||'';
+  var entreE=(document.getElementById('edit-entre')||{}).value||'';
+  var prov=document.getElementById('edit-provincia')?document.getElementById('edit-provincia').value:'';
+  switchTab('nuevo');reset();
+  setTimeout(function(){
+    function sv2(id,v){var el=document.getElementById(id);if(el&&v!==undefined&&v!=='')el.value=v;}
+    sv2('telefono',tel);sv2('dniCuit',dni);sv2('cliente',nom);
+    sv2('localidad',loc);sv2('cp',cp);
+    sv2('piso',pisoE);sv2('depto',deptoE);sv2('referencia',refE);sv2('entreCalles',entreE);
+    if(prov){var pSel=document.getElementById('provincia');if(pSel){for(var i=0;i<pSel.options.length;i++){if(pSel.options[i].value===prov){pSel.selectedIndex=i;break;}}}}
+    if(dir){sv2('direccion',dir);if(nomInp)nomInp.value=dir;var q=encodeURIComponent(dir+(loc?', '+loc:'')+', Argentina');document.getElementById('map-frame').src='https://maps.google.com/maps?q='+q+'&output=embed&t=k&hl=es&z=16';document.getElementById('map-addr').textContent=dir+(loc?', '+loc:'');}
+    // Limpiar fila vacía default y cargar productos del pedido
+    document.getElementById('prods').innerHTML='';prodN=0;
+    prods.forEach(function(p){
+      addProd();
+      var rid=prodN;
+      var sk=document.getElementById('sku-'+rid);if(sk)sk.value=p.sku||'';
+      var no=document.getElementById('nom-'+rid);if(no)no.value=p.nombre||'';
+      var ca=document.getElementById('cant-'+rid);if(ca)ca.value=p.cant||1;
+      var pr=document.getElementById('prec-'+rid);if(pr)pr.value=p.precio||'';
+      var row=document.getElementById('prod-'+rid);if(row&&(p.sku||p.nombre))row.className='prod-row prod-found';
+    });
+    recalc();
+    // Actualizar dirección desde ficha del cliente (datos frescos)
+    var digits=String(tel).replace(/\D/g,'');
+    if(digits.length>=8){
+      buscarCliente(digits);
+      google.script.run.withSuccessHandler(function(stats){
+        if(!stats||!stats.found)return;
+        sv2('localidad',stats.localidad);sv2('cp',stats.cp);
+        sv2('piso',stats.piso);sv2('depto',stats.depto);
+        sv2('referencia',stats.referencia);sv2('entreCalles',stats.entreCalles||'');
+        if(stats.direccion){sv2('direccion',stats.direccion);if(nomInp)nomInp.value=stats.direccion;var qq=encodeURIComponent(stats.direccion+(stats.localidad?', '+stats.localidad:'')+', Argentina');document.getElementById('map-frame').src='https://maps.google.com/maps?q='+qq+'&output=embed&t=k&hl=es&z=16';document.getElementById('map-addr').textContent=stats.direccion+(stats.localidad?', '+stats.localidad:'');}
+      }).calcClientStats(digits);
+    }
+    toast('Pedido duplicado — revisá los datos de envío ✓');
+  },50);
+}
+
+/* ── CONSULTAR ── */
+function buscarPedido(){
+  var id=document.getElementById('search-id').value.trim();
+  if(!id)return toast('Ingresa un ID',true);
+  var btn=document.getElementById('btn-search');btn.textContent='Buscando...';btn.disabled=true;
+  showLoading('Buscando pedido...');
+  google.script.run
+    .withSuccessHandler(function(res){
+      hideLoading();btn.textContent='Buscar';btn.disabled=false;
+      if(!res.found){toast('Pedido #'+id+' no encontrado',true);document.getElementById('order-found').className='order-found';return;}
+      cargarPedidoEdit(res);
+    })
+    .withFailureHandler(function(){hideLoading();btn.textContent='Buscar';btn.disabled=false;toast('Error al buscar',true);})
+    .getOrderById(parseInt(id));
+}
+
+/* ── EDIT PRODUCTS (Consultar) ── */
+var editProdN=0,editDiscTipo='pct';
+function epInpStyle(mono){return 'width:100%;border:1.5px solid var(--bdr);border-radius:6px;padding:6px 8px;font-size:12px;background:#181818;color:var(--text);outline:none;'+(mono?'font-family:var(--mono);':'font-family:var(--sans);');}
+function editRecalc(){
+  var rows=document.querySelectorAll('#edit-prods .edit-prod-row'),sub=0;
+  rows.forEach(function(r){
+    var c=parseFloat(r.querySelector('[data-ep-cant]')?r.querySelector('[data-ep-cant]').value:0)||0;
+    var p=parseFloat(r.querySelector('[data-ep-prec]')?r.querySelector('[data-ep-prec]').value:0)||0;
+    var st=c*p;sub+=st;
+    var el=r.querySelector('[data-ep-subt]');if(el)el.textContent=st?'$'+st.toLocaleString('es-AR'):'—';
+  });
+  var desc=parseFloat(document.getElementById('edit-desc')?document.getElementById('edit-desc').value:0)||0;
+  var total=editDiscTipo==='pct'?sub*(1-desc/100):sub-desc;
+  if(total<0)total=0;
+  var tv=document.getElementById('edit-total');if(tv)tv.textContent='$'+total.toLocaleString('es-AR');
+  var ev=document.getElementById('edit-valor');if(ev)ev.value=Math.round(total);
+}
+function togEditDisc(){editDiscTipo=(editDiscTipo==='pct')?'ars':'pct';var b=document.getElementById('edit-desc-tog');if(b)b.textContent=editDiscTipo==='pct'?'%':'$';editRecalc();}
+function closeEskuDrop(drop){if(drop)drop.className='esku-drop';}
+function addEditProdRow(sku,cant,nombre,precio){
+  var isFin=(document.getElementById('edit-gestion')&&document.getElementById('edit-gestion').value==='Finalizado');
+  var wrap=document.getElementById('edit-prods');
+  var id=++editProdN;
+  var row=document.createElement('div');row.className='edit-prod-row';
+
+  // SKU + autocomplete
+  var skuWrap=document.createElement('div');skuWrap.className='esku-wrap';
+  var skuInp=document.createElement('input');
+  skuInp.type='text';skuInp.placeholder='SKU';skuInp.value=sku||'';
+  skuInp.style.cssText=epInpStyle(true)+'text-transform:uppercase;';
+  skuInp.readOnly=isFin;
+  var drop=document.createElement('div');drop.className='esku-drop';
+  skuWrap.appendChild(skuInp);skuWrap.appendChild(drop);
+
+  // Nombre
+  var nomInpE=document.createElement('input');nomInpE.type='text';nomInpE.placeholder='Nombre';nomInpE.value=nombre||'';
+  nomInpE.style.cssText=epInpStyle(false);nomInpE.readOnly=isFin;
+
+  // Cant
+  var cantInp=document.createElement('input');cantInp.type='number';cantInp.placeholder='1';cantInp.min='1';cantInp.value=cant||'1';
+  cantInp.style.cssText=epInpStyle(true);cantInp.setAttribute('data-ep-cant','1');cantInp.readOnly=isFin;
+
+  // Precio
+  var precInp=document.createElement('input');precInp.type='number';precInp.placeholder='0';precInp.min='0';precInp.value=precio||'';
+  precInp.style.cssText=epInpStyle(true);precInp.setAttribute('data-ep-prec','1');precInp.readOnly=isFin;
+
+  // Subtotal display
+  var subtEl=document.createElement('span');subtEl.className='ep-subt';subtEl.setAttribute('data-ep-subt','1');subtEl.textContent='—';
+
+  // Delete
+  var delBtn=document.createElement('button');delBtn.type='button';delBtn.textContent='×';
+  delBtn.className='btn-del';if(isFin){delBtn.disabled=true;delBtn.style.opacity='.3';}
+  delBtn.addEventListener('click',function(){row.remove();editRecalc();});
+
+  row.appendChild(skuWrap);row.appendChild(nomInpE);row.appendChild(cantInp);row.appendChild(precInp);row.appendChild(subtEl);row.appendChild(delBtn);
+  wrap.appendChild(row);
+
+  // SKU autocomplete events
+  if(!isFin){
+    var skuTmE=null;
+    skuInp.addEventListener('input',function(){
+      clearTimeout(skuTmE);var q=this.value.trim();
+      if(q.length<2){closeEskuDrop(drop);return;}
+      skuTmE=setTimeout(function(){
+        google.script.run.withSuccessHandler(function(res){
+          drop.innerHTML='';
+          if(!res||!res.length){closeEskuDrop(drop);return;}
+          res.forEach(function(p){
+            var it=document.createElement('div');it.className='sku-item';
+            it.innerHTML='<div class="sku-sku">'+p.sku+'</div><div class="sku-nom">'+p.nombre+'</div><div class="sku-prc">$'+(p.precio||0).toLocaleString('es-AR')+'</div>';
+            it.addEventListener('mousedown',function(e){
+              e.preventDefault();
+              skuInp.value=p.sku;nomInpE.value=p.nombre;precInp.value=p.precio||'';
+              closeEskuDrop(drop);editRecalc();cantInp.focus();cantInp.select();
+            });
+            drop.appendChild(it);
+          });
+          drop.className='esku-drop esku-drop-on';
+        }).searchSkuPartial(q);
+      },300);
+    });
+    skuInp.addEventListener('blur',function(){setTimeout(function(){closeEskuDrop(drop);},200);});
+    cantInp.addEventListener('input',editRecalc);
+    precInp.addEventListener('input',editRecalc);
+  }
+  editRecalc();
+}
+function initEditProds(res){
+  editProdN=0;editDiscTipo='pct';
+  var wrap=document.getElementById('edit-prods');wrap.innerHTML='';
+  var descTog=document.getElementById('edit-desc-tog');if(descTog)descTog.textContent='%';
+  var descInp=document.getElementById('edit-desc');if(descInp)descInp.value='0';
+  var isFin=(res.gestion==='Finalizado');
+  var addBtn=document.getElementById('btn-add-edit-prod');
+  if(addBtn)addBtn.style.display=isFin?'none':'flex';
+  // 10 productos: sku1/qty1/precio1 ... sku10/qty10/precio10
+  var pairs=[];
+  for(var n=1;n<=10;n++){
+    var sk=res['sku'+n]||'',qt=res['qty'+n]||'',pr=res['precio'+n]||'';
+    pairs.push([sk,qt,pr]);
+  }
+  var skusToLook=pairs.filter(function(p){return String(p[0]||'').trim();}).map(function(p){return String(p[0]).trim();});
+  var added=0;
+  pairs.forEach(function(p){if(String(p[0]||'').trim()){addEditProdRow(p[0],p[1],'',p[2]);added++;}});
+  if(!added)addEditProdRow('','','','');
+  if(skusToLook.length){
+    google.script.run.withSuccessHandler(function(info){
+      var rows=document.querySelectorAll('#edit-prods .edit-prod-row');
+      rows.forEach(function(row){
+        var skuEl=row.querySelector('input[style*="uppercase"]')||row.querySelectorAll('input')[0];
+        if(!skuEl)return;
+        var sku=skuEl.value.trim().toUpperCase();
+        var p=info[sku];
+        if(p){
+          var inputs=row.querySelectorAll('input');
+          if(inputs[1]&&!inputs[1].value)inputs[1].value=p.nombre;
+          if(inputs[3]&&!inputs[3].value)inputs[3].value=p.precio||'';
+        }
+      });
+      editRecalc();
+    }).getSkusInfo(skusToLook);
+  }
+  var ev=document.getElementById('edit-valor');if(ev&&res.valor)ev.value=res.valor;
+  var et=document.getElementById('edit-total');if(et&&res.valor)et.textContent='$'+parseFloat(res.valor).toLocaleString('es-AR');
+}
+function getEditProds(){
+  var rows=document.querySelectorAll('#edit-prods .edit-prod-row'),result=[];
+  rows.forEach(function(row){
+    var inputs=row.querySelectorAll('input');
+    var sku=inputs[0]?inputs[0].value.trim():'';
+    var nombre=inputs[1]?inputs[1].value.trim():'';
+    var cant=inputs[2]?inputs[2].value.trim():'';
+    var precio=inputs[3]?inputs[3].value.trim():'';
+    result.push({sku:sku,nombre:nombre,cant:cant,precio:precio});
+  });
+  return result;
+}
+
+var HIST_GESTION_COLORS={
+  'Para preparar':'hist-dot-preparar',
+  'Agendado':'hist-dot-agendado',
+  'Preparado':'hist-dot-listo',
+  'En camino':'hist-dot-camino',
+  'Finalizado':'hist-dot-finalizado'
+};
+function renderHistorial(histJson){
+  var wrap=document.getElementById('order-historial-wrap');
+  var tl=document.getElementById('order-historial-timeline');
+  if(!wrap||!tl)return;
+  var hist=[];
+  if(histJson){try{hist=JSON.parse(histJson);}catch(e){hist=[];}}
+  if(!hist.length){wrap.style.display='none';return;}
+  wrap.style.display='';
+  tl.innerHTML='';
+  hist.forEach(function(h){
+    var dotClass=HIST_GESTION_COLORS[h.e]||'hist-dot-otro';
+    var item=document.createElement('div');item.className='hist-item';
+    item.innerHTML='<div class="hist-dot '+dotClass+'"></div><div class="hist-info"><div class="hist-estado">'+h.e+'</div><div class="hist-ts">'+h.t+'</div></div>';
+    tl.appendChild(item);
+  });
+}
+
+function cargarPedidoEdit(res){
+  editRowIdx=res.rowIndex;
+  _consultCurrentId=res.id; // para imprimir etiqueta individual
+  function sv(id,v){var el=document.getElementById(id);if(el)el.value=v||'';}
+  sv('edit-fecha',res.fecha);sv('edit-fechaEntrega',res.fechaEntrega);
+  sv('edit-telefono',res.telefono);sv('edit-dniCuit',res.dniCuit);
+  sv('edit-cliente',res.cliente);sv('edit-localidad',res.localidad);
+  sv('edit-cp',res.cp);sv('edit-direccion',res.direccion);sv('edit-horario',res.horario);
+  sv('edit-valor',res.valor);sv('edit-postVenta',res.postVenta);
+  // Limpiar campos de dirección extendida
+  sv('edit-entre','');sv('edit-piso','');sv('edit-depto','');sv('edit-ref','');
+  var gSel=document.getElementById('edit-gestion');
+  if(gSel){for(var i=0;i<gSel.options.length;i++){if(gSel.options[i].value===res.gestion){gSel.selectedIndex=i;break;}}}
+  var pSel=document.getElementById('edit-provincia');
+  if(pSel){for(var j=0;j<pSel.options.length;j++){if(pSel.options[j].value===res.provincia){pSel.selectedIndex=j;break;}}}
+  initEditProds(res);
+  renderHistorial(res.historial||'');
+  if(res.direccion){var q=encodeURIComponent(res.direccion+', '+(res.localidad||'')+', Argentina');document.getElementById('map-frame').src='https://maps.google.com/maps?q='+q+'&output=embed&t=k&hl=es&z=16';document.getElementById('map-addr').textContent=res.direccion+(res.localidad?', '+res.localidad:'');}
+  applyCABARule('edit-provincia','edit-localidad');
+  document.getElementById('order-found').className='order-found order-found-on';
+  // Mostrar nombre del cliente como link
+  var chdr=document.getElementById('consult-cliente-header');
+  var cnom=document.getElementById('consult-cliente-nombre');
+  if(chdr&&cnom){cnom.textContent=res.cliente||'';chdr.style.display=res.cliente?'block':'none';}
+  // Ocultar ficha hasta que cargue
+  var cfWrap=document.getElementById('consult-ficha-wrap');
+  if(cfWrap)cfWrap.style.display='none';
+  // Traer piso/depto/referencia/entreCalles + renderizar ficha del cliente
+  var phone=String(res.telefono||'').replace(/\D/g,'');
+  if(phone.length>=8){
+    google.script.run.withSuccessHandler(function(stats){
+      if(!stats||!stats.found)return;
+      sv('edit-piso',stats.piso);sv('edit-depto',stats.depto);
+      sv('edit-ref',stats.referencia);sv('edit-entre',stats.entreCalles||'');
+      renderConsultFicha(stats);
+    }).calcClientStats(phone);
+  }
+}
+
+function renderConsultFicha(stats){
+  var wrap=document.getElementById('consult-ficha-wrap');
+  var body=document.getElementById('consult-ficha-body');
+  var title=document.getElementById('consult-ficha-title');
+  if(!wrap||!body)return;
+  if(title)title.textContent='👤 '+(stats.nombre||'Ficha del cliente');
+  var tagsHtml=buildTagsHtml(stats.etiquetas?stats.etiquetas.join(', '):'');
+  var ordersHtml=(stats.recentOrders||[]).slice(0,5).map(function(o){
+    return '<tr><td><span class="order-id-link" data-id="'+o.id+'">#'+o.id+'</span></td>'+
+           '<td>'+o.fecha+'</td><td>'+gestChip(o.gestion)+'</td>'+
+           '<td style="font-family:var(--mono);font-weight:600">$'+o.valor.toLocaleString('es-AR')+'</td></tr>';
+  }).join('');
+  body.innerHTML=
+    '<div class="card"><div class="card-body gap">'+
+      (tagsHtml?'<div class="b-tags">'+tagsHtml+'</div>':'')+
+      '<div class="cf-mini-stats">'+
+        '<div class="cf-mini-stat"><div class="cf-mini-stat-val">'+(stats.totalPedidos||0)+'</div><div class="cf-mini-stat-lbl">Pedidos</div></div>'+
+        '<div class="cf-mini-stat"><div class="cf-mini-stat-val">$'+(stats.totalComprado||0).toLocaleString('es-AR')+'</div><div class="cf-mini-stat-lbl">Total comprado</div></div>'+
+        '<div class="cf-mini-stat"><div class="cf-mini-stat-val">'+(stats.diasDesdeUltimo||0)+'d</div><div class="cf-mini-stat-lbl">Último pedido</div></div>'+
+      '</div>'+
+      (ordersHtml?'<table class="orders-table"><thead><tr><th>#</th><th>Fecha</th><th>Estado</th><th>Monto</th></tr></thead>'+
+        '<tbody id="consult-ficha-orders">'+ordersHtml+'</tbody></table>':'')+
+    '</div></div>';
+  // Delegación de clicks en IDs de pedido
+  var tbody=body.querySelector('#consult-ficha-orders');
+  if(tbody){
+    tbody.addEventListener('click',function(e){
+      var el=e.target.closest('.order-id-link');
+      if(el)irAPedido(el.dataset.id);
+    });
+  }
+  wrap.style.display='block';
+  // Empezar colapsado
+  body.className='consult-ficha-body';
+  var hdr=document.getElementById('consult-ficha-hdr');
+  var chev=document.getElementById('consult-ficha-chev');
+  if(hdr)hdr.className='consult-ficha-hdr';
+  if(chev)chev.className='consult-ficha-chev';
+}
+
+function guardarEdicion(){
+  if(editRowIdx<0)return toast('Busca un pedido primero',true);
+  var btn=document.getElementById('btn-update');btn.textContent='Guardando...';btn.disabled=true;btn.className='btn-update btn-update-off';
+  var ep=getEditProds();
+  var rawDir=document.getElementById('edit-direccion').value||'';
+  var piso=(document.getElementById('edit-piso')||{}).value||'';
+  var depto=(document.getElementById('edit-depto')||{}).value||'';
+  var ref=(document.getElementById('edit-ref')||{}).value||'';
+  var entre=(document.getElementById('edit-entre')||{}).value||'';
+  var dirFull=rawDir;
+  if(piso.trim())  dirFull+=', Piso '+piso.trim();
+  if(depto.trim()) dirFull+=', Dpto '+depto.trim();
+  if(ref.trim())   dirFull+=' ['+ref.trim()+']';
+  if(entre.trim()) dirFull+=' (entre '+entre.trim()+')';
+  var data={
+    rowIndex:editRowIdx,id:parseInt(document.getElementById('search-id').value),
+    fecha:document.getElementById('edit-fecha').value,
+    gestion:document.getElementById('edit-gestion').value,origen:vendor||'',
+    telefono:document.getElementById('edit-telefono').value,dniCuit:document.getElementById('edit-dniCuit').value,
+    cliente:document.getElementById('edit-cliente').value,provincia:document.getElementById('edit-provincia').value,
+    localidad:document.getElementById('edit-localidad').value,cp:document.getElementById('edit-cp').value,
+    direccion:dirFull,fechaEntrega:document.getElementById('edit-fechaEntrega').value,
+    horario:document.getElementById('edit-horario').value,valor:document.getElementById('edit-valor').value,
+    // 10 productos
+    sku1:(ep[0]||{}).sku||'',qty1:(ep[0]||{}).cant||'',precio1:(ep[0]||{}).precio||0,
+    sku2:(ep[1]||{}).sku||'',qty2:(ep[1]||{}).cant||'',precio2:(ep[1]||{}).precio||0,
+    sku3:(ep[2]||{}).sku||'',qty3:(ep[2]||{}).cant||'',precio3:(ep[2]||{}).precio||0,
+    sku4:(ep[3]||{}).sku||'',qty4:(ep[3]||{}).cant||'',precio4:(ep[3]||{}).precio||0,
+    sku5:(ep[4]||{}).sku||'',qty5:(ep[4]||{}).cant||'',precio5:(ep[4]||{}).precio||0,
+    sku6:(ep[5]||{}).sku||'',qty6:(ep[5]||{}).cant||'',precio6:(ep[5]||{}).precio||0,
+    sku7:(ep[6]||{}).sku||'',qty7:(ep[6]||{}).cant||'',precio7:(ep[6]||{}).precio||0,
+    sku8:(ep[7]||{}).sku||'',qty8:(ep[7]||{}).cant||'',precio8:(ep[7]||{}).precio||0,
+    sku9:(ep[8]||{}).sku||'',qty9:(ep[8]||{}).cant||'',precio9:(ep[8]||{}).precio||0,
+    sku10:(ep[9]||{}).sku||'',qty10:(ep[9]||{}).cant||'',precio10:(ep[9]||{}).precio||0,
+    postVenta:document.getElementById('edit-postVenta').value
+  };
+  // Actualizar dirección limpia en ficha del cliente
+  var phone=String(document.getElementById('edit-telefono').value||'').replace(/\D/g,'');
+  if(phone.length>=8) google.script.run.updateClientAddressIfExists(phone,rawDir,piso,depto,ref,entre);
+  google.script.run
+    .withSuccessHandler(function(res){btn.textContent='Guardar cambios';btn.disabled=false;btn.className='btn-update';if(res.ok){toast('Pedido actualizado');cargarResumenHoy();}else{toast('Error: '+res.error,true);}})
+    .withFailureHandler(function(){btn.textContent='Guardar cambios';btn.disabled=false;btn.className='btn-update';toast('Error al guardar',true);})
+    .updateOrder(data);
+}
+
+/* ── CLIENTES ── */
+function gestChip(g){
+  var c='gest-other';
+  if(g==='Finalizado')c='gest-fin';
+  else if(g==='Para preparar')c='gest-prep';
+  else if(g==='Agendado')c='gest-ag';
+  else if(g==='Preparado')c='gest-listo';
+  else if(g==='En camino')c='gest-cam';
+  else if(g==='Fallido')c='gest-fall';
+  else if(g==='Cancelado')c='gest-canc';
+  else if(g==='Error')c='gest-err';
+  return '<span class="gest-chip '+c+'">'+g+'</span>';
+}
+
+function buscarClienteTab(){
+  var q=document.getElementById('search-client').value.trim();
+  if(q.length<4)return toast('Ingresa al menos 4 caracteres',true);
+  var btn=document.getElementById('btn-search-client');btn.textContent='Buscando...';btn.disabled=true;
+  showLoading('Buscando cliente...');
+  google.script.run
+    .withSuccessHandler(function(res){
+      hideLoading();btn.textContent='Buscar';btn.disabled=false;
+      if(!res||!res.found){toast('Cliente no encontrado',true);document.getElementById('client-ficha').className='order-found';return;}
+      cargarFichaCliente(res);
+    })
+    .withFailureHandler(function(){hideLoading();btn.textContent='Buscar';btn.disabled=false;toast('Error al buscar',true);})
+    .getClientByQuery(q);
+}
+
+function cargarFichaCliente(res){
+  clientRowIdx=res.rowIndex;
+  document.getElementById('cf-nombre').textContent=res.nombre||(res.telefono?fmtPhone(res.telefono):'');
+  document.getElementById('cf-total-ped').textContent=res.totalPedidos;
+  document.getElementById('cf-total-comp').textContent='$'+res.totalComprado.toLocaleString('es-AR');
+  document.getElementById('cf-frec').textContent=res.frecuencia;
+  document.getElementById('cf-dias').textContent=res.diasDesdeUltimo+'d';
+  var tagsEl=document.getElementById('cf-tags');
+  tagsEl.innerHTML=(res.etiquetas||[]).map(function(t){return'<span class="'+tagClass(t)+'">'+t+'</span>';}).join(' ');
+  // Datos editables
+  function sv(id,v){var el=document.getElementById(id);if(el)el.value=v||'';}
+  sv('cf-tel',res.telefono);sv('cf-dni',res.dniCuit);sv('cf-nom',res.nombre);
+  sv('cf-prov',res.provincia);sv('cf-loc',res.localidad);sv('cf-cp',res.cp);
+  sv('cf-dir',res.direccion);sv('cf-notas',res.notas);
+  sv('cf-piso',res.piso);sv('cf-depto',res.depto);sv('cf-ref',res.referencia);sv('cf-entre',res.entreCalles||'');
+  // Pedidos recientes
+  var tbody=document.getElementById('cf-orders-body');tbody.innerHTML='';
+  (res.recentOrders||[]).forEach(function(o){
+    var tr=document.createElement('tr');
+    tr.innerHTML='<td><span class="order-id-link" data-id="'+o.id+'">#'+o.id+'</span></td><td>'+o.fecha+'</td><td>'+gestChip(o.gestion)+'</td><td style="font-family:var(--mono);font-weight:600">$'+o.valor.toLocaleString('es-AR')+'</td>';
+    tbody.appendChild(tr);
+  });
+  // Top SKUs
+  var sbody=document.getElementById('cf-skus-body');sbody.innerHTML='';
+  (res.topSkus||[]).forEach(function(s){
+    var tr=document.createElement('tr');
+    tr.innerHTML='<td style="font-family:var(--mono);font-weight:700;color:#f0f0f0">'+s.sku+'</td><td style="color:var(--muted)">'+s.count+'x</td>';
+    sbody.appendChild(tr);
+  });
+  // Alerta de errores propios
+  var errAlert=document.getElementById('cf-err-alert');
+  if(res.errorCount>0){
+    if(!errAlert){errAlert=document.createElement('div');errAlert.id='cf-err-alert';errAlert.style.cssText='margin-bottom:10px;background:#2a1a4a;border:1px solid rgba(176,128,255,.3);border-radius:8px;padding:10px 14px;font-size:11px;font-weight:700;color:#b080ff;';document.getElementById('client-ficha').insertBefore(errAlert,document.getElementById('client-ficha').firstChild);}
+    errAlert.textContent='⚠️ Este cliente tuvo '+res.errorCount+' pedido'+(res.errorCount>1?'s':'')+' con Error de nuestra parte — pendiente de atención especial.';
+  }else if(errAlert){errAlert.remove();}
+  // Mapa
+  if(res.direccion){var q=encodeURIComponent(res.direccion+', '+(res.localidad||'')+', Argentina');document.getElementById('map-frame').src='https://maps.google.com/maps?q='+q+'&output=embed&t=k&hl=es&z=16';document.getElementById('map-addr').textContent=res.direccion+(res.localidad?', '+res.localidad:'');}
+  document.getElementById('client-ficha').className='order-found order-found-on';
+}
+
+function nuevoPedidoDesdeCliente(){
+  var tel=document.getElementById('cf-tel').value;
+  var nom=document.getElementById('cf-nom').value;
+  var dni=document.getElementById('cf-dni').value;
+  var prov=document.getElementById('cf-prov').value;
+  var loc=document.getElementById('cf-loc').value;
+  var cp=document.getElementById('cf-cp').value;
+  var dir=document.getElementById('cf-dir').value;
+  var piso=document.getElementById('cf-piso').value;
+  var depto=document.getElementById('cf-depto').value;
+  var ref=document.getElementById('cf-ref').value;
+  var entre=document.getElementById('cf-entre').value;
+  // Ir a cargar venta y resetear
+  switchTab('nuevo');reset();
+  // Esperar un tick para que el reset termine
+  setTimeout(function(){
+    function sv(id,v){var el=document.getElementById(id);if(el&&v)el.value=v;}
+    sv('telefono',tel);sv('dniCuit',dni);sv('cliente',nom);
+    sv('localidad',loc);sv('cp',cp);sv('piso',piso);sv('depto',depto);sv('referencia',ref);sv('entreCalles',entre);
+    // Provincia (select)
+    var pSel=document.getElementById('provincia');
+    if(pSel&&prov){for(var i=0;i<pSel.options.length;i++){if(pSel.options[i].value===prov){pSel.selectedIndex=i;break;}}}
+    // Dirección
+    if(dir){
+      sv('direccion',dir);
+      if(nomInp)nomInp.value=dir;
+      var q=encodeURIComponent(dir+(loc?', '+loc:'')+', Argentina');
+      document.getElementById('map-frame').src='https://maps.google.com/maps?q='+q+'&output=embed&t=k&hl=es&z=16';
+      document.getElementById('map-addr').textContent=dir+(loc?', '+loc:'');
+    }
+    // Disparar búsqueda de cliente para el banner
+    if(tel){var digits=tel.replace(/\D/g,'');if(digits.length>=8)buscarCliente(digits);}
+    toast('Datos del cliente cargados ✓');
+  },50);
+}
+
+function guardarCliente(){
+  if(clientRowIdx<0)return toast('Busca un cliente primero',true);
+  var data={rowIndex:clientRowIdx,telefono:document.getElementById('cf-tel').value,nombre:document.getElementById('cf-nom').value,dniCuit:document.getElementById('cf-dni').value,provincia:document.getElementById('cf-prov').value,localidad:document.getElementById('cf-loc').value,cp:document.getElementById('cf-cp').value,direccion:document.getElementById('cf-dir').value,notas:document.getElementById('cf-notas').value,piso:document.getElementById('cf-piso').value,depto:document.getElementById('cf-depto').value,referencia:document.getElementById('cf-ref').value,entreCalles:document.getElementById('cf-entre').value};
+  google.script.run
+    .withSuccessHandler(function(res){if(res.ok){toast('Cliente actualizado');}else{toast('Error: '+res.error,true);}})
+    .updateClientData(data);
+}
+
+/* ── RANKING ── */
+var rankingLoaded=false,rankingPeriod='total';
+function toggleRanking(){
+  var list=document.getElementById('ranking-list');
+  if(list.className==='card ranking-list'){
+    list.className='card ranking-list ranking-list-on';
+    if(!rankingLoaded){rankingLoaded=true;cargarRanking();}
+  }else{
+    list.className='card ranking-list';
+  }
+}
+
+function cargarRanking(){
+  var body=document.getElementById('ranking-body');body.textContent='Cargando...';
+  showLoading('Cargando ranking...');
+  google.script.run
+    .withSuccessHandler(function(clients){
+      hideLoading();
+      if(!clients||clients.length===0){body.textContent='Sin datos';return;}
+      var html='';
+      clients.forEach(function(c,i){
+        var tagsHtml=buildTagsHtml(c.etiquetas);
+        var tel=c.telefono||'';
+        html+='<div class="rank-row" style="cursor:pointer;" onclick="abrirClienteDesdeRanking(\''+tel+'\')">'+
+          '<span class="rank-n">#'+(i+1)+'</span>'+
+          '<span class="rank-name" style="color:#94DCF8;text-decoration:underline;text-underline-offset:2px;">'+(c.nombre||c.telefono)+'</span>'+
+          (tagsHtml?'<span>'+tagsHtml+'</span>':'<span></span>')+
+          '<span class="rank-peds">'+c.totalPedidos+' ped.</span>'+
+          '<span class="rank-amt">$'+c.totalComprado.toLocaleString('es-AR')+'</span>'+
+          '</div>';
+      });
+      body.innerHTML=html;
+    })
+    .withFailureHandler(function(){hideLoading();body.textContent='Error al cargar ranking';})
+    .getClientRanking(rankingPeriod);
+}
+
+function abrirClienteDesdeRanking(tel){
+  switchTab('clientes');
+  document.getElementById('search-client').value=tel;
+  buscarClienteTab();
+  window.scrollTo(0,0);
+}
+
+/* ── ETIQUETAS INFO ── */
+function toggleEtiqInfo(){
+  var l=document.getElementById('etiq-list');
+  l.className=l.className.indexOf('ranking-list-on')>=0?'card ranking-list':'card ranking-list ranking-list-on';
+}
+
+/* ── COMISIONES ── */
+var comisionesLoaded=false;
+var MESES=['','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+var COM_VEND=['Rodrigo','Mica','Brisa'];
+
+function toggleComYear(id){
+  var el=document.getElementById(id);
+  if(el)el.className=el.className.indexOf('ranking-list-on')>=0?'card ranking-list':'card ranking-list ranking-list-on';
+}
+
+function cargarHistorialComisiones(){
+  var body=document.getElementById('com-history-body');
+  body.textContent='Cargando...';
+  var btn=document.getElementById('btn-com-refresh');btn.disabled=true;
+  showLoading('Calculando comisiones...');
+  google.script.run
+    .withSuccessHandler(function(res){
+      hideLoading();btn.disabled=false;comisionesLoaded=true;
+      if(!res||!res.years.length){body.textContent='Sin datos de pedidos finalizados.';return;}
+      var data=res.data;
+      var html='';
+      res.years.slice().reverse().forEach(function(y){
+        // Encabezado año expandible
+        html+='<div class="ranking-toggle" onclick="toggleComYear(\'cy-'+y+'\')" style="margin-bottom:4px;">'+
+          '<span style="font-weight:700;">'+y+'</span><small>Click para expandir/colapsar</small></div>';
+        html+='<div id="cy-'+y+'" class="card ranking-list ranking-list-on" style="margin-bottom:10px;">'+
+          '<div class="card-body" style="padding:6px 8px;">';
+        html+='<table style="width:100%;border-collapse:collapse;font-size:11px;">';
+        // Cabecera
+        html+='<thead><tr>'+
+          '<th style="text-align:left;padding:4px 8px;border-bottom:2px solid var(--bdr);font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);">Mes</th>';
+        COM_VEND.forEach(function(v){
+          html+='<th style="text-align:right;padding:4px 8px;border-bottom:2px solid var(--bdr);font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);">'+v+'</th>';
+        });
+        html+='</tr></thead><tbody>';
+        // Filas por mes
+        var totals={};COM_VEND.forEach(function(v){totals[v]=0;});
+        for(var m=1;m<=12;m++){
+          var hasData=COM_VEND.some(function(v){return data[y]&&data[y][m]&&data[y][m][v];});
+          if(!hasData)continue;
+          html+='<tr><td style="padding:5px 8px;font-weight:600;border-bottom:1px solid var(--bdr-s);white-space:nowrap;">'+MESES[m]+'</td>';
+          COM_VEND.forEach(function(v){
+            var cell=data[y]&&data[y][m]&&data[y][m][v];
+            var val=cell?Math.round(cell.comision):null;
+            if(cell)totals[v]+=cell.comision;
+            html+='<td style="padding:5px 8px;font-family:var(--mono);text-align:right;border-bottom:1px solid var(--bdr-s);'+(cell?'':'color:var(--muted);')+'">'+(val!==null?'$'+val.toLocaleString('es-AR'):'—')+'</td>';
+          });
+          html+='</tr>';
+        }
+        // Total del año
+        html+='<tr style="font-weight:700;border-top:2px solid var(--bdr);background:#1e1e1e;">'+
+          '<td style="padding:6px 8px;">Total</td>';
+        COM_VEND.forEach(function(v){
+          html+='<td style="padding:6px 8px;font-family:var(--mono);text-align:right;color:var(--green);">$'+Math.round(totals[v]).toLocaleString('es-AR')+'</td>';
+        });
+        html+='</tr></tbody></table></div></div>';
+      });
+      body.innerHTML=html;
+    })
+    .withFailureHandler(function(){
+      hideLoading();document.getElementById('btn-com-refresh').disabled=false;
+      body.textContent='Error al cargar. Intentá de nuevo.';
+    })
+    .getCommissionsHistory();
+}
+
+/* ── ETIQUETAS ── */
+var _banks=[];
+
+function abrirVentanaEtiquetas_(labels){
+  var html=generarHtmlEtiquetas(labels);
+  var w=window.open('','_blank','width=520,height=700');
+  if(!w){toast('Permitir popups para imprimir',true);return;}
+  w.document.write(html);
+  w.document.close();
+  setTimeout(function(){w.focus();w.print();},700);
+}
+
+var _consultCurrentId=null;
+function imprimirEtiquetaPedidoActual(){
+  if(!_consultCurrentId){toast('Buscá un pedido primero',true);return;}
+  showLoading('Generando etiqueta...');
+  google.script.run
+    .withSuccessHandler(function(label){
+      hideLoading();
+      if(!label){toast('No se encontró el pedido',true);return;}
+      switchTab('gestion');
+      switchSubtab('etiquetas');
+      cargarEtiquetasPanelConLabels_([label]);
+    })
+    .withFailureHandler(function(){hideLoading();toast('Error al obtener etiqueta',true);})
+    .getLabelByOrderId(_consultCurrentId);
+}
+
+function imprimirEtiquetasDespacho(){
+  var chks=document.querySelectorAll('.dispatch-row-chk:checked');
+  if(!chks.length){toast('Seleccioná al menos un pedido',true);return;}
+  var ids=[];
+  chks.forEach(function(c){
+    var tr=c.closest('tr');
+    if(tr){var idCell=tr.querySelector('td:nth-child(2)');if(idCell)ids.push(idCell.textContent.replace('#','').trim());}
+  });
+  if(!ids.length){toast('No se pudieron leer los IDs',true);return;}
+  showLoading('Generando etiquetas...');
+  google.script.run
+    .withSuccessHandler(function(labels){
+      hideLoading();
+      if(!labels||!labels.length){toast('No se encontraron etiquetas',true);return;}
+      switchTab('gestion');
+      switchSubtab('etiquetas');
+      cargarEtiquetasPanelConLabels_(labels);
+    })
+    .withFailureHandler(function(){hideLoading();toast('Error al obtener etiquetas',true);})
+    .getLabelsByOrderIds(ids);
+}
+
+function generarHtmlEtiquetas(labels){
+  function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function fmtVal(n){return '$'+(Math.round(n)||0).toLocaleString('es-AR');}
+
+  function fmtWAPhone(tel){
+    var d=String(tel||'').replace(/\D/g,'');
+    if(!d)return '';
+    if(d.charAt(0)==='0')d=d.substring(1);
+    if(d.substring(0,3)==='549')return d;
+    if(d.substring(0,2)==='54')return '549'+d.substring(2);
+    return '549'+d;
+  }
+
+  function waQrUrl(tel,pedidoId){
+    var phone=fmtWAPhone(tel);
+    if(!phone)return '';
+    var msg=encodeURIComponent('Hola! Soy el repartidor de Telmo Herramientas, estoy en camino con tu pedido #'+pedidoId+' \U0001f69a');
+    var url='https://wa.me/'+phone+'?text='+msg;
+    return 'https://api.qrserver.com/v1/create-qr-code/?size=120x120&data='+encodeURIComponent(url)+'&margin=0';
+  }
+
+  function buildEtqHtml(l){
+    var bank=l.bank||{alias:'TELMO.HERRAMIENTAS.2',titular:'BRISA CAROLINA CARRASCO JAIME'};
+    var qrSrc=waQrUrl(l.telefono,l.id);
+    var qrHtml=qrSrc
+      ?'<img class="qr" src="'+qrSrc+'" width="64" height="64" alt="WA">'
+      :'<div class="qr"></div>';
+    var provExtra=(l.provincia&&l.provincia!=='Buenos Aires')?' &middot; '+esc(l.provincia):'';
+    var prodsHtml=(l.skus&&l.skus.length?l.skus:[]).map(function(p){
+      return '<div class="prod-row">'
+        +'<span class="sku">'+esc(p.sku)+'</span>'
+        +'<span class="prod-name">'+esc(p.nombre||'')+'</span>'
+        +'<span class="cant">x'+esc(p.cant)+'</span>'
+        +'</div>';
+    }).join('')||'<div class="prod-row"><span class="sku" style="color:#6b6b6b">&#8212;</span><span class="prod-name"></span><span class="cant"></span></div>';
+
+    return '<article class="etq">'
+      +'<header class="hdr">'
+        +'<div class="logo-stack"><div class="logo-box">TELMO</div></div>'
+        +'<div class="hdr-right">'
+          +'<div class="ped-area">'
+            +'<div class="ped-lbl">PEDIDO</div>'
+            +'<div class="ped-num">#'+esc(String(l.id))+'</div>'
+          +'</div>'
+        +'</div>'
+      +'</header>'
+      +'<section class="s-dest">'
+        +'<div class="loc">'+esc(l.localidad)+provExtra+'</div>'
+        +'<div class="addr-grid">'
+          +'<div class="dir">'+esc(l.direccion)+'</div>'
+          +'<div class="cp">CP '+esc(l.cp)+'</div>'
+        +'</div>'
+        +'<div class="time-row">'
+          +'<div class="horario">'+esc(l.horario)+'</div>'
+          +(l.fechaEntrega?'<div class="fecha-badge">'+esc(l.fechaEntrega)+'</div>':'')
+        +'</div>'
+      +'</section>'
+      +'<section class="s-addr">'
+        +'<div class="dest-main">'
+          +'<div class="nombre">'+esc(l.cliente)+'</div>'
+          +'<div class="tel">'+esc(l.telefono)+'</div>'
+        +'</div>'
+        +'<div class="qr-wrap">'
+          +qrHtml
+          +'<div class="qr-lbl">Escribir por<br>WhatsApp</div>'
+        +'</div>'
+      +'</section>'
+      +'<section class="s-prods">'
+        +'<div class="section-label">Productos</div>'
+        +'<div class="prod-list">'+prodsHtml+'</div>'
+      +'</section>'
+      +'<footer class="s-foot">'
+        +'<div class="foot-top">'
+          +'<div class="cobrar-lbl">COBRAR AL ENTREGAR</div>'
+          +'<div class="monto">'+fmtVal(l.valor)+'</div>'
+        +'</div>'
+        +'<div class="transfer">'
+          +'<div class="t-intro">También podés pagar por transferencia</div>'
+          +'<div class="t-rows">'
+            +'<div class="t-row"><span class="t-lbl">Alias</span><b>'+esc(bank.alias)+'</b></div>'
+            +'<div class="t-row"><span class="t-lbl">Titular</span><b>'+esc(bank.titular)+'</b></div>'
+          +'</div>'
+        +'</div>'
+      +'</footer>'
+    +'</article>';
+  }
+
+  var body='';
+  for(var i=0;i<labels.length;i+=2){
+    var g=labels.slice(i,i+2);
+    body+='<div class="page">'+g.map(function(l){return buildEtqHtml(l);}).join('')+'</div>';
+  }
+
+  var phoneSvg=encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="black" d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.2 21 3 13.8 3 5c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>');
+  var phoneIconUrl='url("data:image/svg+xml;charset=utf-8,'+phoneSvg+'") center/contain no-repeat';
+
+  var css=''
+    +'@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap");'
+    +':root{--ink:#1a1a1a;--ink-2:#2e2e2e;--band:#5b5b5b;--foot:#1f1f1f;--paper:#ffffff;--paper-3:#f5f5f3;--rule:#d6d6d2;--muted:#6b6b6b;--accent:#2a2a2a;}'
+    +'*{box-sizing:border-box;margin:0;padding:0;}'
+    +'@page{size:A4 portrait;margin:5mm;}'
+    +'html,body{background:#fff;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact;}'
+    +'.page{display:flex;gap:0;width:200mm;height:150mm;page-break-after:always;break-after:page;}'
+    +'.page:last-child{page-break-after:auto;break-after:auto;}'
+    +'.etq{width:100mm;height:150mm;background:var(--paper);color:var(--ink);display:grid;grid-template-rows:auto auto auto auto 1fr auto;font-size:10pt;line-height:1.25;overflow:hidden;}'
+    +'.hdr{background:var(--band);color:#fff;padding:4mm 4.5mm;display:grid;grid-template-columns:1fr auto;align-items:stretch;column-gap:4mm;}'
+    +'.logo-stack{display:flex;flex-direction:column;justify-content:flex-end;gap:1.4mm;}'
+    +'.logo-box{color:#fff;font-family:"Archivo Black","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:400;font-size:36pt;letter-spacing:-0.01em;line-height:.9;}'
+    +'.hdr-right{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;text-align:right;}'
+    +'.ped-area{display:flex;flex-direction:column;align-items:flex-end;line-height:.9;}'
+    +'.ped-lbl{font-size:7pt;letter-spacing:.26em;font-weight:700;opacity:.8;margin-bottom:-1.2mm;}'
+    +'.ped-num{font-size:22pt;font-weight:900;line-height:.88;letter-spacing:-0.015em;color:#fff;transform:translateY(1.5mm);}'
+    +'.s-dest{background:var(--paper);padding:3.5mm 4.5mm 3mm;}'
+    +'.s-dest .loc{font-size:13.5pt;font-weight:900;line-height:1.05;letter-spacing:-0.005em;text-transform:uppercase;color:var(--ink);}'
+    +'.s-dest .addr-grid{margin-top:1.8mm;display:grid;grid-template-columns:1fr auto;column-gap:4mm;align-items:start;}'
+    +'.s-dest .dir{font-size:10pt;font-weight:600;line-height:1.3;color:var(--ink-2);overflow-wrap:anywhere;}'
+    +'.s-dest .cp{font-size:11pt;font-weight:900;line-height:1.2;color:var(--ink);letter-spacing:-0.005em;text-transform:uppercase;white-space:nowrap;text-align:right;}'
+    +'.s-dest .time-row{margin-top:2.4mm;display:flex;align-items:center;justify-content:space-between;gap:3mm;}'
+    +'.s-dest .horario{display:inline-flex;align-items:center;gap:1.8mm;background:var(--band);color:#fff;padding:1.2mm 2.2mm 1mm;border-radius:1mm;font-size:11pt;font-weight:800;line-height:1;white-space:nowrap;}'
+    +'.s-dest .horario::before{content:"";width:3.6mm;height:3.6mm;border-radius:999px;border:.4mm solid #fff;background:linear-gradient(#fff,#fff) center/.3mm 1.25mm no-repeat,linear-gradient(#fff,#fff) center/1.05mm .3mm no-repeat;background-position:50% 30%,60% 50%;flex:0 0 auto;}'
+    +'.fecha-badge{background:transparent;color:var(--ink);font-size:11pt;font-weight:900;letter-spacing:.005em;line-height:1;white-space:nowrap;text-transform:uppercase;}'
+    +'.s-addr{background:var(--paper-3);padding:3.2mm 4.5mm 3.4mm;border-top:.25mm solid var(--rule);border-bottom:.25mm solid var(--rule);display:grid;grid-template-columns:1fr auto;column-gap:4mm;align-items:start;}'
+    +'.s-addr .dest-main{min-width:0;}'
+    +'.s-addr .nombre{font-size:11pt;font-weight:800;line-height:1.1;letter-spacing:-0.005em;text-transform:uppercase;color:var(--ink);}'
+    +'.s-addr .tel{margin-top:1.6mm;display:inline-flex;align-items:center;gap:1.8mm;color:var(--ink);font-size:11.5pt;font-weight:800;line-height:1;white-space:nowrap;}'
+    +'.s-addr .tel::before{content:"";width:4mm;height:4mm;background:var(--ink);flex:0 0 auto;-webkit-mask:'+phoneIconUrl+';mask:'+phoneIconUrl+';}'
+    +'.qr-wrap{display:flex;flex-direction:column;align-items:center;gap:1mm;}'
+    +'.qr{display:block;width:17mm;height:17mm;}'
+    +'.qr-lbl{font-size:6.5pt;font-weight:700;color:var(--ink);text-align:center;line-height:1.15;white-space:nowrap;}'
+    +'.s-prods{padding:3mm 4.5mm 2.5mm;background:var(--paper);display:flex;flex-direction:column;}'
+    +'.s-prods .section-label{font-size:7pt;letter-spacing:.26em;color:var(--accent);font-weight:800;text-transform:uppercase;padding-bottom:1.6mm;border-bottom:.35mm solid var(--ink);margin-bottom:1.4mm;}'
+    +'.prod-list{display:flex;flex-direction:column;}'
+    +'.prod-row{display:grid;grid-template-columns:auto 1fr auto;column-gap:3mm;align-items:center;padding:1.6mm 0;border-bottom:.15mm solid var(--rule);}'
+    +'.prod-row:last-child{border-bottom:0;}'
+    +'.sku{font-family:"Courier New",ui-monospace,Menlo,Consolas,monospace;font-weight:700;font-size:9.5pt;letter-spacing:.04em;color:var(--ink);white-space:nowrap;}'
+    +'.prod-name{color:var(--muted);font-size:8pt;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}'
+    +'.cant{font-weight:900;font-size:14pt;letter-spacing:-0.01em;color:var(--accent);white-space:nowrap;line-height:1;}'
+    +'.s-foot{background:transparent;padding:0;}'
+    +'.foot-top{background:var(--foot);color:#fff;padding:3.4mm 4.5mm;display:grid;grid-template-columns:1fr auto;align-items:center;column-gap:3mm;}'
+    +'.cobrar-lbl{font-size:11pt;font-weight:900;letter-spacing:.08em;text-transform:uppercase;line-height:1.05;white-space:nowrap;}'
+    +'.monto{font-size:22pt;font-weight:900;line-height:1;letter-spacing:-0.015em;color:#fff;white-space:nowrap;font-family:"Archivo Black","Helvetica Neue",Helvetica,Arial,sans-serif;}'
+    +'.transfer{background:#fff;color:var(--ink);padding:2.8mm 4.5mm 3mm;display:flex;flex-direction:column;gap:1.4mm;border-top:.25mm solid var(--rule);}'
+    +'.transfer .t-intro{font-size:7pt;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);line-height:1;}'
+    +'.transfer .t-rows{display:flex;flex-direction:column;gap:.8mm;}'
+    +'.transfer .t-row{display:flex;align-items:baseline;gap:2.4mm;font-size:9pt;line-height:1.15;}'
+    +'.transfer .t-lbl{font-size:6.5pt;font-weight:800;letter-spacing:.2em;color:var(--muted);min-width:12mm;text-transform:uppercase;flex:0 0 auto;}'
+    +'.transfer .t-row b{font-weight:800;color:var(--ink);letter-spacing:.02em;font-size:9.5pt;}';
+
+  return '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">'
+    +'<link rel="preconnect" href="https://fonts.googleapis.com">'
+    +'<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
+    +'<title>Etiquetas Telmo</title><style>'+css+'</style></head><body>'+body+'</body></html>';
+}
+
+/* ── LOADING ── */
+function showLoading(msg){var el=document.getElementById('ld');el.querySelector('.ld-msg').textContent=msg||'Buscando...';el.className='ld-on';}
+function hideLoading(){document.getElementById('ld').className='';}
+
+/* ── TOAST ── */
+function toast(msg,isErr){var t=document.getElementById('toast');t.textContent=msg;t.className=(isErr?'toast-err':'')+' toast-on';setTimeout(function(){t.className='';},3000);}
+
+/* ── INIT ── */
+window.onload=function(){
+  // Vendors
+  VENDORS.forEach(function(v){
+    var vc=document.getElementById('vc-'+v),vb=document.getElementById('vb-'+v);
+    if(vc)vc.addEventListener('click',function(){setVendor(v);});
+    if(vb)vb.addEventListener('click',function(){setVendor(v);});
+  });
+
+  // CABA rule
+  document.getElementById('provincia').addEventListener('change',function(){applyCABARule('provincia','localidad');});
+  document.getElementById('edit-provincia').addEventListener('change',function(){applyCABARule('edit-provincia','edit-localidad');});
+
+  // Tabs
+  document.getElementById('tab-nuevo').addEventListener('click',function(){switchTab('nuevo');});
+  document.getElementById('tab-pedidos').addEventListener('click',function(){switchTab('pedidos');});
+  document.getElementById('tab-consultar').addEventListener('click',function(){switchTab('consultar');});
+  document.getElementById('tab-clientes').addEventListener('click',function(){switchTab('clientes');});
+  document.getElementById('tab-gestion').addEventListener('click',function(){switchTab('gestion');});
+  document.getElementById('tab-comisiones').addEventListener('click',function(){switchTab('comisiones');if(!comisionesLoaded)cargarHistorialComisiones();});
+
+  // Pedidos: filtros
+  document.getElementById('ped-filters').addEventListener('click',function(e){
+    var btn=e.target.closest('.ped-filter');
+    if(btn)cargarPedidos(btn.dataset.gest);
+  });
+  // Pedidos: click en ID → consultar; click en nombre → cliente
+  document.getElementById('ped-tbody').addEventListener('click',function(e){
+    var idEl=e.target.closest('.ped-id-link');
+    if(idEl){irAPedido(idEl.dataset.id);return;}
+    var nomEl=e.target.closest('.ped-nom-link');
+    if(nomEl&&nomEl.dataset.tel)irACliente(nomEl.dataset.tel);
+  });
+
+  // Telefono
+  document.getElementById('telefono').addEventListener('input',function(){
+    clearTimeout(phoneTm);var val=this.value.replace(/[^0-9]/g,'');
+    if(val.length<8){hideBanner();lastClient=null;return;}
+    var s=val;phoneTm=setTimeout(function(){buscarCliente(s);},600);
+  });
+
+  // Fecha entrega
+  document.getElementById('fechaEntrega').addEventListener('change',function(){
+    document.getElementById('sched-n').className=isAgendado(this.value)?'sched-n sched-n-on':'sched-n';
+  });
+
+  // Date buttons
+  document.getElementById('btn-hoy').addEventListener('click',function(){setFechaEntrega('hoy');});
+  document.getElementById('btn-manana').addEventListener('click',function(){setFechaEntrega('manana');});
+  document.getElementById('btn-lunes').addEventListener('click',function(){setFechaEntrega('lunes');});
+
+  // Discount global
+  var dgi=document.getElementById('desc-global');var dgt=document.getElementById('desc-global-tog');
+  if(dgi)dgi.addEventListener('input',recalc);
+  if(dgt)dgt.addEventListener('click',togGlobalDisc);
+
+  // Nuevo pedido buttons
+  document.getElementById('btn-add').addEventListener('click',addProd);
+  document.getElementById('btn-clr').addEventListener('click',reset);
+  document.getElementById('btn-save').addEventListener('click',guardar);
+
+  // Confirm modal
+  document.getElementById('btn-copy').addEventListener('click',function(){
+    if(!confirmTxt)return;var btn=document.getElementById('btn-copy');
+    if(navigator.clipboard){navigator.clipboard.writeText(confirmTxt).then(function(){btn.textContent='Copiado!';btn.className='btn-copy btn-copy-ok';setTimeout(function(){btn.textContent='Copiar para WhatsApp';btn.className='btn-copy';},2200);});}
+  });
+  document.getElementById('btn-new').addEventListener('click',function(){document.getElementById('cm').className='modal-ov';reset();});
+  document.getElementById('btn-edit-order').addEventListener('click',function(){
+    document.getElementById('cm').className='modal-ov';
+    switchTab('consultar');
+    if(lastSavedId){document.getElementById('search-id').value=lastSavedId;buscarPedido();}
+  });
+
+  // Consultar
+  document.getElementById('btn-search').addEventListener('click',buscarPedido);
+  document.getElementById('search-id').addEventListener('keydown',function(e){if(e.keyCode===13)buscarPedido();});
+  document.getElementById('btn-update').addEventListener('click',guardarEdicion);
+  document.getElementById('btn-cancel-edit').addEventListener('click',function(){
+    document.getElementById('order-found').className='order-found';
+    document.getElementById('search-id').value='';
+    editRowIdx=-1;
+    var cfWrap=document.getElementById('consult-ficha-wrap');
+    if(cfWrap)cfWrap.style.display='none';
+  });
+  document.getElementById('consult-ficha-hdr').addEventListener('click',function(){
+    var body=document.getElementById('consult-ficha-body');
+    var hdr=document.getElementById('consult-ficha-hdr');
+    var chev=document.getElementById('consult-ficha-chev');
+    var isOpen=body.className.indexOf('consult-ficha-body-on')>=0;
+    body.className=isOpen?'consult-ficha-body':'consult-ficha-body consult-ficha-body-on';
+    hdr.className=isOpen?'consult-ficha-hdr':'consult-ficha-hdr consult-ficha-hdr-on';
+    chev.className=isOpen?'consult-ficha-chev':'consult-ficha-chev consult-ficha-chev-on';
+  });
+  document.getElementById('btn-gen-msg').addEventListener('click',generarMensajeConsultar);
+  document.getElementById('btn-duplicar-pedido').addEventListener('click',duplicarPedido);
+  // Click delegado en tabla de pedidos recientes (ficha cliente)
+  document.getElementById('cf-orders-body').addEventListener('click',function(e){
+    var el=e.target.closest('.order-id-link');
+    if(el)irAPedido(el.dataset.id);
+  });
+  document.getElementById('btn-add-edit-prod').addEventListener('click',function(){addEditProdRow('','','','');});
+  var edd=document.getElementById('edit-desc');if(edd)edd.addEventListener('input',editRecalc);
+  var edt=document.getElementById('edit-desc-tog');if(edt)edt.addEventListener('click',togEditDisc);
+
+  // Clientes
+  document.getElementById('btn-search-client').addEventListener('click',buscarClienteTab);
+  document.getElementById('search-client').addEventListener('keydown',function(e){if(e.keyCode===13)buscarClienteTab();});
+  document.getElementById('btn-save-client').addEventListener('click',guardarCliente);
+  document.getElementById('btn-nuevo-pedido-cliente').addEventListener('click',nuevoPedidoDesdeCliente);
+  document.getElementById('ranking-toggle').addEventListener('click',toggleRanking);
+  document.getElementById('ranking-period').addEventListener('change',function(){rankingPeriod=this.value;if(rankingLoaded)cargarRanking();});
+  document.getElementById('etiq-toggle').addEventListener('click',toggleEtiqInfo);
+  document.getElementById('btn-com-refresh').addEventListener('click',cargarHistorialComisiones);
+  // Etiquetas panel: click en #id → consultar; click en nombre → cliente
+  document.getElementById('etq-list').addEventListener('click',function(e){
+    var idEl=e.target.closest('.ped-id-link');
+    if(idEl){irAPedido(idEl.dataset.id);return;}
+    var nomEl=e.target.closest('.ped-nom-link');
+    if(nomEl&&nomEl.dataset.tel)irACliente(nomEl.dataset.tel);
+  });
+
+  // CP: solo 4 digitos
+  function cpFilter(e){e.target.value=e.target.value.replace(/\D/g,'').slice(0,4);}
+  document.getElementById('cp').addEventListener('input',cpFilter);
+  document.getElementById('edit-cp').addEventListener('input',cpFilter);
+
+  setToday();setDefaultFechaEntrega();loadLocs();initVendor();addProd();initPlaces();recalc();
+  document.getElementById('horario').value='16:00 a 21:00hs';
+  cargarResumenHoy();
+  google.script.run.withSuccessHandler(function(b){_banks=b||[];}).getBanks();
+};
+
+/* ── DESPACHO ── */
+var _dispatchOrders=[];
+function cargarDespacho(){
+  var tbody=document.getElementById('dispatch-tbody');
+  tbody.innerHTML='<tr><td colspan="7" class="ped-empty">Cargando...</td></tr>';
+  actualizarContadorDispatch();
+  google.script.run
+    .withSuccessHandler(function(orders){
+      _dispatchOrders=orders||[];
+      renderDespacho(_dispatchOrders);
+    })
+    .withFailureHandler(function(){tbody.innerHTML='<tr><td colspan="7" class="ped-empty">Error al cargar</td></tr>';})
+    .getOrdersForDispatch();
+}
+
+function renderDespacho(orders){
+  var tbody=document.getElementById('dispatch-tbody');
+  if(!orders||!orders.length){
+    tbody.innerHTML='<tr><td colspan="7" class="ped-empty">No hay pedidos Para preparar ni Agendados</td></tr>';
+    return;
+  }
+  tbody.innerHTML='';
+  orders.forEach(function(o){
+    var tr=document.createElement('tr');
+    tr.innerHTML=
+      '<td><input type="checkbox" class="dispatch-chk dispatch-row-chk" data-rowindex="'+o.rowIndex+'" onchange="actualizarContadorDispatch()"></td>'+
+      '<td><span class="ped-id-link" data-id="'+o.id+'" onclick="irAPedido('+o.id+')">#'+o.id+'</span></td>'+
+      '<td style="font-weight:600">'+(o.cliente||'—')+'</td>'+
+      '<td class="ped-loc">'+(o.localidad||'—')+'</td>'+
+      '<td style="font-size:11px;color:var(--sub)">'+(o.fechaEntrega||'—')+'</td>'+
+      '<td>'+gestChip(o.gestion)+'</td>'+
+      '<td class="ped-val">$'+o.valor.toLocaleString('es-AR')+'</td>';
+    tbody.appendChild(tr);
+  });
+  actualizarContadorDispatch();
+}
+
+function actualizarContadorDispatch(){
+  var chks=document.querySelectorAll('.dispatch-row-chk:checked');
+  var count=chks.length;
+  var countEl=document.getElementById('dispatch-count');
+  if(countEl)countEl.textContent=count+' seleccionado'+(count!==1?'s':'');
+  var disabled=(count===0);
+  var b1=document.getElementById('btn-preparado');if(b1)b1.disabled=disabled;
+  var b2=document.getElementById('btn-en-camino');if(b2)b2.disabled=disabled;
+  var bp=document.getElementById('btn-imprimir-despacho');if(bp)bp.disabled=disabled;
+}
+
+function toggleSelectAll(){
+  var all=document.getElementById('chk-all');
+  var chks=document.querySelectorAll('.dispatch-row-chk');
+  var shouldCheck=all?all.checked:false;
+  // Si se llama desde el botón textual, alternar según estado actual
+  if(!all){
+    var anyChecked=document.querySelector('.dispatch-row-chk:checked');
+    shouldCheck=!anyChecked;
+  }
+  chks.forEach(function(c){c.checked=shouldCheck;});
+  if(all)all.checked=shouldCheck;
+  actualizarContadorDispatch();
+}
+
+function marcarSeleccionados(gestion){
+  var chks=document.querySelectorAll('.dispatch-row-chk:checked');
+  if(!chks.length)return toast('Seleccioná al menos un pedido',true);
+  var rowIndexes=[];
+  chks.forEach(function(c){rowIndexes.push(parseInt(c.dataset.rowindex));});
+  var btnId=gestion==='Preparado'?'btn-preparado':'btn-en-camino';
+  var btn=document.getElementById(btnId);
+  var origTxt=btn.textContent;
+  btn.textContent='Guardando...';btn.disabled=true;
+  google.script.run
+    .withSuccessHandler(function(res){
+      btn.textContent=origTxt;
+      if(res.ok){
+        toast(res.updated+' pedido'+(res.updated!==1?'s':'')+' marcado'+(res.updated!==1?'s':'')+' como "'+gestion+'" ✓');
+        cargarDespacho();
+        cargarResumenHoy();
+      }else{
+        btn.disabled=false;
+        toast('Error: '+res.error,true);
+      }
+    })
+    .withFailureHandler(function(){btn.textContent='🚚 Marcar En camino';btn.disabled=false;toast('Error al guardar',true);})
+    .bulkUpdateGestion(rowIndexes,gestion);
+}
+
+/* ── COBROS ── */
+var _cajasMethods=['Efectivo','MP Telmo','MP Mica','MP Brisa'];
+var _cobroRowIndex=-1;
+
+function cargarMetodosPago(){
+  google.script.run
+    .withSuccessHandler(function(methods){
+      _cajasMethods=methods||['Efectivo','MP Telmo','MP Mica','MP Brisa'];
+      populateCajaSelects();
+    })
+    .getPaymentMethods();
+}
+
+function populateCajaSelects(){
+  ['cobro-caja1','cobro-caja2'].forEach(function(id,idx){
+    var sel=document.getElementById(id);
+    if(!sel)return;
+    var prev=sel.value;
+    sel.innerHTML='';
+    if(idx===1){var opt=document.createElement('option');opt.value='';opt.textContent='— Ninguna —';sel.appendChild(opt);}
+    _cajasMethods.forEach(function(m){
+      var opt=document.createElement('option');opt.value=m;opt.textContent=m;sel.appendChild(opt);
+    });
+    if(prev)sel.value=prev;
+  });
+  onCajaChange();
+}
+
+function buscarPedidoCobro(){
+  var id=document.getElementById('cobro-search-id').value.trim();
+  if(!id)return toast('Ingresá un ID',true);
+  showLoading('Buscando pedido...');
+  google.script.run
+    .withSuccessHandler(function(res){
+      hideLoading();
+      if(!res.found){toast('Pedido #'+id+' no encontrado',true);return;}
+      cargarFormCobro(res);
+    })
+    .withFailureHandler(function(){hideLoading();toast('Error al buscar',true);})
+    .getOrderById(parseInt(id));
+}
+
+function cargarFormCobro(res){
+  _cobroRowIndex=res.rowIndex;
+  document.getElementById('cobro-order-id').textContent='#'+res.id;
+  document.getElementById('cobro-order-name').textContent=res.cliente||'-';
+  document.getElementById('cobro-order-sub').textContent=
+    (res.localidad||'')+(res.fechaEntrega?' · Entrega: '+res.fechaEntrega:'')+
+    ' · $'+parseFloat(res.valor||0).toLocaleString('es-AR');
+  // Si ya tiene cobro registrado, mostrar
+  var existWrap=document.getElementById('cobro-existente');
+  var existBody=document.getElementById('cobro-existente-body');
+  if(res.caja1||res.caja2||res.nrOperacion){
+    existBody.innerHTML=
+      (res.caja1?'<div class="cm-row"><span class="cm-row-lbl">Caja 1</span><span class="cm-row-val">'+res.caja1+(res.monto1?' · $'+parseFloat(res.monto1).toLocaleString('es-AR'):' ')+'</span></div>':'')+
+      (res.caja2?'<div class="cm-row"><span class="cm-row-lbl">Caja 2</span><span class="cm-row-val">'+res.caja2+(res.monto2?' · $'+parseFloat(res.monto2).toLocaleString('es-AR'):'')+'</span></div>':'')+
+      (res.nrOperacion?'<div class="cm-row"><span class="cm-row-lbl">N° Operación</span><span class="cm-row-val" style="font-family:var(--mono)">'+res.nrOperacion+'</span></div>':'');
+    existWrap.style.display='block';
+    // Pre-cargar en el form
+    var c1=document.getElementById('cobro-caja1');if(c1)c1.value=res.caja1||'';
+    var m1=document.getElementById('cobro-monto1');if(m1)m1.value=res.monto1||'';
+    var c2=document.getElementById('cobro-caja2');if(c2)c2.value=res.caja2||'';
+    var m2=document.getElementById('cobro-monto2');if(m2)m2.value=res.monto2||'';
+    var nr=document.getElementById('cobro-nrop');if(nr)nr.value=res.nrOperacion||'';
+  }else{
+    existWrap.style.display='none';
+    var c1=document.getElementById('cobro-caja1');if(c1)c1.value='';
+    var m1=document.getElementById('cobro-monto1');if(m1)m1.value=parseFloat(res.valor)||'';
+    var c2=document.getElementById('cobro-caja2');if(c2)c2.value='';
+    var m2=document.getElementById('cobro-monto2');if(m2){m2.value='';m2.disabled=true;}
+    var nr=document.getElementById('cobro-nrop');if(nr)nr.value='';
+    var nrs=document.getElementById('cobro-nrop-status');if(nrs){nrs.className='cobro-status';nrs.textContent='';}
+  }
+  document.getElementById('cobro-form').className='cobro-form cobro-form-on';
+  onCajaChange();
+  onMontoChange();
+}
+
+var _nropTm=null;
+function verificarNrOp(val){
+  val=String(val||'').trim();
+  var st=document.getElementById('cobro-nrop-status');
+  if(!st)return;
+  if(!val){st.className='cobro-status';st.textContent='';return;}
+  clearTimeout(_nropTm);
+  _nropTm=setTimeout(function(){
+    google.script.run
+      .withSuccessHandler(function(res){
+        if(res.exists){
+          st.className='cobro-status cobro-status-warn';
+          st.textContent='⚠️ Este N° ya está registrado en el pedido #'+res.pedidoId;
+        }else{
+          st.className='cobro-status cobro-status-ok';
+          st.textContent='✓ N° de operación disponible';
+        }
+      })
+      .checkNrOperacion(val);
+  },600);
+}
+
+function isTransfer(caja){
+  var c=String(caja||'').toLowerCase();
+  return c&&c!=='efectivo';
+}
+
+function onCajaChange(){
+  var c1=document.getElementById('cobro-caja1');
+  var c2=document.getElementById('cobro-caja2');
+  var m2=document.getElementById('cobro-monto2');
+  var nr1=document.getElementById('nr-op-wrap1');
+  if(c1&&nr1)nr1.className=isTransfer(c1.value)?'nr-op-wrap nr-op-wrap-on':'nr-op-wrap';
+  if(c2&&m2)m2.disabled=(!c2.value);
+  onMontoChange();
+}
+
+function onMontoChange(){
+  var m1=parseFloat((document.getElementById('cobro-monto1')||{}).value)||0;
+  var m2=parseFloat((document.getElementById('cobro-monto2')||{}).value)||0;
+  var tot=document.getElementById('cobro-total-display');
+  if(tot)tot.textContent='$ '+(m1+m2).toLocaleString('es-AR');
+}
+
+function guardarCobro(){
+  if(_cobroRowIndex<0)return toast('Buscá un pedido primero',true);
+  var c1=(document.getElementById('cobro-caja1')||{}).value||'';
+  var m1=(document.getElementById('cobro-monto1')||{}).value||'';
+  var c2=(document.getElementById('cobro-caja2')||{}).value||'';
+  var m2=(document.getElementById('cobro-monto2')||{}).value||'';
+  var nr=(document.getElementById('cobro-nrop')||{}).value||'';
+  if(!c1)return toast('Seleccioná al menos Caja 1',true);
+  if(!m1)return toast('Ingresá el Monto 1',true);
+  // Validar N° Op si hay transferencia
+  if(isTransfer(c1)&&!nr)return toast('Ingresá el N° de Operación para la transferencia',true);
+  var data={rowIndex:_cobroRowIndex,caja1:c1,monto1:m1,caja2:c2,monto2:m2,nrOperacion:nr};
+  google.script.run
+    .withSuccessHandler(function(res){
+      if(res.ok){
+        var msg=res.finalizado?'Cobro guardado — pedido Finalizado ✓':'Cobro guardado ✓';
+        toast(msg);
+        var existBody=document.getElementById('cobro-existente-body');
+        var existWrap=document.getElementById('cobro-existente');
+        if(existBody){
+          existBody.innerHTML=
+            '<div class="cm-row"><span class="cm-row-lbl">Caja 1</span><span class="cm-row-val">'+c1+' · $'+parseFloat(m1).toLocaleString('es-AR')+'</span></div>'+
+            (c2?'<div class="cm-row"><span class="cm-row-lbl">Caja 2</span><span class="cm-row-val">'+c2+(m2?' · $'+parseFloat(m2).toLocaleString('es-AR'):'')+'</span></div>':'')+
+            (nr?'<div class="cm-row"><span class="cm-row-lbl">N° Operación</span><span class="cm-row-val" style="font-family:var(--mono)">'+nr+'</span></div>':'');
+          existWrap.style.display='block';
+        }
+        if(res.finalizado){
+          // Re-cargar pedido para refrescar historial en panel consultar
+          var orderId=parseInt((document.getElementById('cobro-order-id').textContent||'').replace('#',''));
+          if(orderId>0){
+            google.script.run.withSuccessHandler(function(r){
+              if(r&&r.found)renderHistorial(r.historial||'');
+            }).getOrderById(orderId);
+          }
+        }
+      }else{toast('Error: '+res.error,true);}
+    })
+    .withFailureHandler(function(){toast('Error al guardar cobro',true);})
+    .saveCobro(data);
+}
+
+var lastDaySummary=null;
+function actualizarComisionHoy(){
+  if(!lastDaySummary)return;
+  var vd=(lastDaySummary.byVendor&&lastDaySummary.byVendor[vendor])||{comision:0,pedidos:0};
+  // Totales globales
+  document.getElementById('today-cnt').textContent=(lastDaySummary.count||0);
+  // Stats del vendedor logueado
+  document.getElementById('today-vd-cnt').textContent=(vd.pedidos||0);
+  document.getElementById('today-com').textContent='$'+(vd.comision||0).toLocaleString('es-AR',{minimumFractionDigits:0,maximumFractionDigits:0});
+}
+function cargarResumenHoy(){
+  google.script.run
+    .withSuccessHandler(function(r){
+      if(!r)return;
+      lastDaySummary=r;
+      document.getElementById('today-val').textContent='$'+(r.total||0).toLocaleString('es-AR');
+      actualizarComisionHoy();
+    })
+    .getTodaySummary();
+}
 </script>
 </body>
 </html>
